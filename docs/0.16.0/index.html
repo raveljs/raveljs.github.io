@@ -71,7 +71,7 @@
 </li>
 <li><a href="#api-documentation">API Documentation</a>
 <ul>
-<li><a href="#ravel">Ravel</a></li>
+<li><a href="#ravel-app">Ravel</a></li>
 <li><a href="#managed-configuration-system">Managed Configuration System</a></li>
 <li><a href="#ravelerror">Ravel.Error</a></li>
 <li><a href="#ravelmodule">Ravel.Module</a></li>
@@ -296,7 +296,13 @@ app.start();
 <pre><code class="language-bash">$ node app.js
 </code></pre>
 <h2>API Documentation</h2>
-<h3>Ravel</h3>
+<blockquote>
+<p><a href="http://raveljs.github.io/docs/latest/"><small>View API docs 🕮</small></a></p>
+</blockquote>
+<h3>Ravel App</h3>
+<blockquote>
+<p><a href="http://raveljs.github.io/docs/latest/core/ravel.js.html"><small>View API docs 🕮</small></a></p>
+</blockquote>
 <p>A Ravel application is a root application file (such as <code>app.js</code>), coupled with a collection of files exporting <code>Module</code>s, <code>Resource</code>s and <code>Routes</code> (see <a href="#architecture">Architecture</a> for more information). Getting started is usually as simple as creating <code>app.js</code>:</p>
 <p><em>app.js</em></p>
 <pre><code class="language-js">const Ravel = require('ravel');
@@ -311,8 +317,14 @@ app.init();
 app.listen();
 </code></pre>
 <h3>Managed Configuration System</h3>
+<blockquote>
+<p><a href="http://raveljs.github.io/docs/latest/core/params.js.html"><small>View API docs 🕮</small></a></p>
+</blockquote>
 <p>Traditional <code>node</code> appliations often rely on <code>process.env</code> for configuration. This can lead to headaches when an expected value is not declared in the environment, a value is supplied but doesn't match any expected ones, or the name of an environment variable changes and refactoring mistakes are made. To help mitigate this common issue, Ravel features a simple configuration system which relies on three methods:</p>
 <h4>app.registerParameter</h4>
+<blockquote>
+<p><a href="http://raveljs.github.io/docs/latest/core/params.js.html#registerParameter"><small>View API docs 🕮</small></a></p>
+</blockquote>
 <p>Create managed parameters with <code>app.registerParameter()</code>:</p>
 <p><em>app.js</em></p>
 <pre><code class="language-js">const Ravel = require('ravel');
@@ -330,6 +342,9 @@ app.listen();
 </code></pre>
 <p>Many Ravel plugin libraries will automatically create parameters which you will have to supply values for. These parameters will be documented in their <code>README.md</code>.</p>
 <h4>app.set</h4>
+<blockquote>
+<p><a href="http://raveljs.github.io/docs/latest/core/params.js.html#set"><small>View API docs 🕮</small></a></p>
+</blockquote>
 <p>Provide values via <code>app.set()</code>. Setting an unknown parameter will result in an <code>Error</code>.</p>
 <p><em>app.js</em></p>
 <pre><code class="language-js">const Ravel = require('ravel');
@@ -348,6 +363,9 @@ app.set('an unknown parameter', 'some value');
 app.listen();
 </code></pre>
 <h4>app.get</h4>
+<blockquote>
+<p><a href="http://raveljs.github.io/docs/latest/core/params.js.html#get"><small>View API docs 🕮</small></a></p>
+</blockquote>
 <p>Retrieve values via <code>app.get()</code>. Retrieving an unknown parameter will result in an <code>Error</code>.</p>
 <p><em>app.js</em></p>
 <pre><code class="language-js">const Ravel = require('ravel');
@@ -393,6 +411,9 @@ app.set('koa favicon path', undefined); // favicon middleware configuration
 }
 </code></pre>
 <h3>Ravel.Error</h3>
+<blockquote>
+<p><a href="http://raveljs.github.io/docs/latest/util/application_error.js.html"><small>View API docs 🕮</small></a></p>
+</blockquote>
 <p>This is the base <code>Error</code> type for Ravel, meant to be extended into semantic errors which can be used within your applications. When you create a custom <code>Ravel.Error</code>, you <strong>must</strong> provide an associated HTTP status code, which Ravel will automatically respond with if an HTTP request results in that particular <code>Error</code> being thrown. This helps create meaningful status codes for your REST APIs while working within traditional <code>node</code> error-handling paradigms (<code>throw/try/catch</code> and <code>Promise.reject()</code>). Errors are generally best-declared within <code>Module</code>, <code>Resource</code> or <code>Routes</code> files (and not exported), closest to where they are used.</p>
 <p><em>at the top of some <code>Module</code>, <code>Resource</code> or <code>Routes</code> file (we'll get to this next)</em></p>
 <pre><code class="language-js">const Ravel = require('ravel');
@@ -406,6 +427,9 @@ class UploadError extends Ravel.Error {
 }
 </code></pre>
 <h3>Ravel.Module</h3>
+<blockquote>
+<p><a href="http://raveljs.github.io/docs/latest/core/module.js.html"><small>View API docs 🕮</small></a></p>
+</blockquote>
 <p><code>Module</code>s are meant to contain the bulk of your application logic, either to support endpoints defined in <code>Resource</code>s and <code>Routes</code>, or to perform tasks at specific points during the Ravel lifecycle (see <a href="#lifecycle-decorators">Lifecycle Decorators</a> below).</p>
 <p>Here's a simple module:</p>
 <p><em>modules/my-module.js</em></p>
@@ -431,6 +455,9 @@ class MyModule extends Module {
 module.exports = MyModule; // you must export your Module so that Ravel can require() it.
 </code></pre>
 <h4>Dependency Injection and Module Registration</h4>
+<blockquote>
+<p><a href="http://raveljs.github.io/docs/latest/core/decorators/inject.js.html"><small>View API docs 🕮</small></a></p>
+</blockquote>
 <p>Ravel's <em>dependency injection</em> system is meant to address several issues with traditional <code>require()</code>s:</p>
 <ul>
 <li>Using <code>require()</code> with one's own modules in a complex project often results in statements like this: <code>require('../../../../my/module');</code>. This issue is especially pronounced when <code>require()</code>ing source modules in test files.</li>
@@ -501,6 +528,9 @@ app.modules('./modules');
 <p>Essentially, Ravel ignores the path you pass to <code>app.modules()</code> and uses any remaining path components to namespace <code>Module</code>s.</p>
 </blockquote>
 <h4>Lifecycle Decorators</h4>
+<blockquote>
+<p><a href="http://raveljs.github.io/docs/latest/core/decorators/lifecycle.js.html"><small>View API docs 🕮</small></a></p>
+</blockquote>
 <p><code>Module</code>s are also a great place to define logic which should run at particular points during the Ravel lifecycle. Decorating a <code>Module</code> method appropriately results in that method firing exactly once at the specified time:</p>
 <pre><code class="language-js">const Ravel = require('ravel');
 const Module = Ravel.Module;
@@ -524,6 +554,9 @@ module.exports = MyInitModule;
 <li><code>@koaconfig</code> fires during <code>Ravel.init()</code>, after Ravel is finished configuring the underlying <code>koa</code> app object with global middleware. Methods decorated with <code>@koaconfig</code> receive a reference to the underlying <code>koa</code> app object for customization. This decorator is meant for exceptional circumstances, since (unnecessarily) global middleware constitutes a hot path and can lead to inefficiency.</li>
 </ul>
 <h3>Ravel.Routes</h3>
+<blockquote>
+<p><a href="http://raveljs.github.io/docs/latest/core/routes.js.html"><small>View API docs 🕮</small></a></p>
+</blockquote>
 <p><code>Routes</code> are Ravel's abstraction of <code>koa</code>. They provide Ravel with a simple mechanism for registering <code>koa</code> routes, which should (generally) only be used for serving templated pages or static content (not for building RESTful APIs, for which <code>Ravel.Resource</code> is more applicable). Extend this abstract superclass to create a <code>Routes</code> module.</p>
 <p>Like <code>Module</code>s, <code>Routes</code> classes support dependency injection, allowing easy connection of application logic and web layers.</p>
 <p><em>routes/my-routes.js</em></p>
@@ -568,6 +601,9 @@ const app = new Ravel();
 app.routes('./routes/my-routes');
 </code></pre>
 <h3>Ravel.Resource</h3>
+<blockquote>
+<p><a href="http://raveljs.github.io/docs/latest/core/resource.js.html"><small>View API docs 🕮</small></a></p>
+</blockquote>
 <p>What might be referred to as a <em>controller</em> in other frameworks, a <code>Resource</code> module defines HTTP methods on an endpoint. <code>Resource</code>s also support dependency injection, allowing for the easy creation of RESTful interfaces to your <code>Module</code>-based application logic. Resources are really just a thin wrapper around <code>Routes</code>, using specially-named handler functions (<code>get</code>, <code>getAll</code>, <code>post</code>, <code>put</code>, <code>putAll</code>, <code>delete</code>, <code>deleteAll</code>) instead of <code>@mapping</code>. This convention-over-configuration approach makes it easier to write proper REST APIs with less code, and is recommended over <s>carefully chosen</s> <code>@mapping</code>s in a <code>Routes</code> class. Omitting any or all of the specially-named handler functions is fine, and will result in a <code>501 NOT IMPLEMENTED</code> status when that particular method/endpoint is requested. <code>Resource</code>s inherit all the properties, methods and decorators of <code>Routes</code>. See <a href="routes.js.html">core/routes</a> for more information. Note that <code>@mapping</code> does not apply to <code>Resources</code>.</p>
 <p><em>resources/person-resource.js</em></p>
 <pre><code class="language-js">const inject = require('ravel').inject;
@@ -616,6 +652,9 @@ class PersonResource extends Resource {
 module.exports = PersonResource
 </code></pre>
 <h4>Registering Resources</h4>
+<blockquote>
+<p><a href="http://raveljs.github.io/docs/latest/core/resources.js.html"><small>View API docs 🕮</small></a></p>
+</blockquote>
 <p>Much like <code>Module</code>s, <code>Resource</code>s can be added to your Ravel application via <code>app.resources('path/to/resources/directory')</code>:</p>
 <p><em>app.js</em></p>
 <pre><code class="language-js">// ...
@@ -624,6 +663,9 @@ const app = new Ravel();
 app.resources('./resources');
 </code></pre>
 <h3>Database Providers</h3>
+<blockquote>
+<p><a href="http://raveljs.github.io/docs/latest/db/database_provider.js.html"><small>View API docs 🕮</small></a></p>
+</blockquote>
 <p>A <code>DatabaseProvider</code> is a lightweight wrapper for a <code>node</code> database library (such as <a href="https://github.com/felixge/node-mysql">node-mysql</a>) which performs all the complex set-up and configuration of the library automatically, and registers simple parameters which you must <code>app.set</code> (such as the database host ip). The true purpose of <code>DatabaseProvider</code>s is to reduce boilerplate code between applications, as well as facilitate Ravel's transaction-per-request system (coming up <a href="#transaction-per-request">next</a>). You may use as many different <code>DatbaseProvider</code>s as you wish in your application. Here's an example pulled from <a href="https://github.com/raveljs/ravel-mysql-provider"><code>ravel-mysql-provider</code></a>:</p>
 <h4>Example Setup</h4>
 <p><em>app.js</em></p>
@@ -658,6 +700,9 @@ new MySQLProvider(app, 'mysql');
 <p>If you've written a <code>DatabaseProvider</code> and would like to see it on this list, contact us or open an issue/PR against this README!</p>
 </blockquote>
 <h3>Transaction-per-request</h3>
+<blockquote>
+<p><a href="http://raveljs.github.io/docs/latest/db/decorators/transaction.js.html"><small>View API docs 🕮</small></a></p>
+</blockquote>
 <p>The <code>@transaction</code> decorator is Ravel's way of automatically opening (and managing) database connections for a <code>Routes</code> or <code>Resource</code> handler method. It is available for import as <code>Routes.transaction</code> or <code>Resource.transaction</code>.</p>
 <p>When used at the method-level, <code>@transaction</code> opens connections for that specific handler method. When used at the class-level, it open connections for all handler methods in that <code>Route</code> or <code>Resource</code> class.</p>
 <p>Connections are available within the handler method as an object <code>ctx.transaction</code>, which contains connections as values and <code>DatabaseProvider</code> names as keys. Connections will be closed automatically when the endpoint responds (<strong>do not close them yourself</strong>), and will automatically roll-back changes if a <code>DatabaseProvider</code> supports it (generally a SQL-only feature).</p>
@@ -688,6 +733,9 @@ class PersonResource extends Resource {
 module.exports = PersonResource;
 </code></pre>
 <h3>Authentication Providers</h3>
+<blockquote>
+<p><a href="http://raveljs.github.io/docs/latest/auth/authentication_provider.js.html"><small>View API docs 🕮</small></a></p>
+</blockquote>
 <p>An <code>AuthenticationProvider</code> is a lightweight wrapper for a <a href="https://github.com/jaredhanson/passport">Passport</a> provider library (such as <a href="https://github.com/jaredhanson/passport-github">passport-github</a>) which performs all the complex set-up and configuration of the library automatically, and registers simple parameters which you must <code>app.set</code> (such as OAuth client ids and secrets). The purpose of <code>AuthenticationProvider</code>s is to reduce boilerplate code between applications, and simplify often complex <code>Passport</code> configuration code. You may use as many different <code>AuthenticationProvider</code>s as you wish in your application. Here's an example pulled from <a href="https://github.com/raveljs/ravel-github-oauth2-provider"><code>ravel-github-oauth2-provider</code></a>:</p>
 <h4>Example Setup</h4>
 <p><em>app.js</em></p>
@@ -753,6 +801,9 @@ module.exports = AuthConfig;
 <p>If you've written an <code>AuthenticationProvider</code> and would like to see it on this list, contact us or open an issue/PR against this README!</p>
 </blockquote>
 <h3>Authentication</h3>
+<blockquote>
+<p><a href="http://raveljs.github.io/docs/latest/auth/decorators/authenticated.js.html"><small>View API docs 🕮</small></a></p>
+</blockquote>
 <p>Once you've registered an <code>AuthenticationProvider</code>, requiring users to have an authenticated session to access a <code>Routes</code> or <code>Resource</code> endpoint is accomplished via the <code>@authenticated</code> decorator, which can be used at the class or method level:</p>
 <p><em>Note: the @authenticated decorator works the same way on <code>Routes</code> and <code>Resource</code> classes/methods</em></p>
 <pre><code class="language-js">const Routes = require('ravel').Routes;
