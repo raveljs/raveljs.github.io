@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width" charset="utf-8">
+    <title>Ravel 0.17.2 API Reference</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="../css/prism.min.css">
+    <link rel="stylesheet" href="../css/index.min.css">
+    <link rel="stylesheet" href="../css/docs.min.css">
+  </head>
+  <body data-spy="scroll" data-target=".scrollspy">
+    <header id="overview" class="jumbotron subhead">
+      <div class="container"><img src="../css/logo2.png">
+        <h1>Ravel 0.17.2 API Reference</h1>
+      </div>
+    </header>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-3 bs-docs-sidebar">
+          <ul class="nav nav-list bs-docs-sidenav affix-top">
+            <li><a href="../index.html">Main</a></li>
+            <li><a href="../auth/authentication_provider.js.html">auth/authentication_provider.js</a></li>
+            <li><a href="../auth/decorators/authconfig.js.html">auth/decorators/authconfig.js</a></li>
+            <li><a href="../auth/decorators/authenticated.js.html">auth/decorators/authenticated.js</a></li>
+            <li><a href="../core/decorators/before.js.html">core/decorators/before.js</a></li>
+            <li><a href="../core/decorators/inject.js.html">core/decorators/inject.js</a></li>
+            <li><a href="../core/decorators/lifecycle.js.html">core/decorators/lifecycle.js</a></li>
+            <li><a href="../core/decorators/mapping.js.html">core/decorators/mapping.js</a></li>
+            <li><a href="../core/module.js.html">core/module.js</a></li>
+            <li><a href="../core/modules.js.html">core/modules.js</a></li>
+            <li><a href="../core/params.js.html">core/params.js</a></li>
+            <li><a href="../core/reflect.js.html">core/reflect.js</a></li>
+            <li><a href="../core/resource.js.html">core/resource.js</a></li>
+            <li><a href="../core/resources.js.html">core/resources.js</a></li>
+            <li><a href="../core/routes.js.html">core/routes.js</a></li>
+            <li><a href="../db/database_provider.js.html">db/database_provider.js</a></li>
+            <li><a href="../db/decorators/transaction.js.html">db/decorators/transaction.js</a></li>
+            <li><a href="../ravel.js.html">ravel.js</a></li>
+            <li class="active"><a href="../util/application_error.js.html">util/application_error.js</a></li>
+            <li><a href="../util/http_codes.js.html">util/http_codes.js</a></li>
+            <li><a href="../util/log.js.html">util/log.js</a></li>
+          </ul>
+          <div class="scrollspy">
+            <ul class="nav nav-list bs-docs-sidenav affix-top">
+              <li><a href="#RavelError"><i class="alert alert-success"></i><span>RavelError</span></a>
+              </li>
+              <li><a href="#constructor"><i class="alert alert-success"></i><span>constructor</span></a>
+              </li>
+              <li><a href="#AccessError"><i class="alert alert-success"></i><span>AccessError</span></a>
+              </li>
+              <li><a href="#constructor"><i class="alert alert-success"></i><span>constructor</span></a>
+              </li>
+              <li><a href="#AuthenticationError"><i class="alert alert-success"></i><span>AuthenticationError</span></a>
+              </li>
+              <li><a href="#constructor"><i class="alert alert-success"></i><span>constructor</span></a>
+              </li>
+              <li><a href="#DuplicateEntryError"><i class="alert alert-success"></i><span>DuplicateEntryError</span></a>
+              </li>
+              <li><a href="#constructor"><i class="alert alert-success"></i><span>constructor</span></a>
+              </li>
+              <li><a href="#IllegalValueError"><i class="alert alert-success"></i><span>IllegalValueError</span></a>
+              </li>
+              <li><a href="#constructor"><i class="alert alert-success"></i><span>constructor</span></a>
+              </li>
+              <li><a href="#NotAllowedError"><i class="alert alert-success"></i><span>NotAllowedError</span></a>
+              </li>
+              <li><a href="#constructor"><i class="alert alert-success"></i><span>constructor</span></a>
+              </li>
+              <li><a href="#NotFoundError"><i class="alert alert-success"></i><span>NotFoundError</span></a>
+              </li>
+              <li><a href="#constructor"><i class="alert alert-success"></i><span>constructor</span></a>
+              </li>
+              <li><a href="#NotImplementedError"><i class="alert alert-success"></i><span>NotImplementedError</span></a>
+              </li>
+              <li><a href="#constructor"><i class="alert alert-success"></i><span>constructor</span></a>
+              </li>
+              <li><a href="#RangeOutOfBoundsError"><i class="alert alert-success"></i><span>RangeOutOfBoundsError</span></a>
+              </li>
+              <li><a href="#constructor"><i class="alert alert-success"></i><span>constructor</span></a>
+              </li>
+              <li><a href="#exports"><i class="alert alert-success"></i><span>exports</span></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-sm-9">
+          <section id="RavelError">
+            <h1>RavelError</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-success radius ctx-type">class</div><span>&nbsp;</span><span>new RavelError()</span><span>&nbsp;</span><span>&nbsp;</span><span class="label label-default">extends</span><span>&nbsp;</span><span>Error</span>
+            </p>
+          </section>
+          <div class="description"><p>Base error type for Ravel, to be extended into semantic errors<br />which can be used within Ravel modules, as well as by clients&#39;<br />APIs. These Error types are intended to encapsulate standard<br />things that can go wrong and, when used by a client, are<br />translated into HTTP status codes automatically in<br /><code>Resource</code> responses</p><p>Thanks to <a href="http://dustinsenos.com/articles/customErrorsInNode">http://dustinsenos.com/articles/customErrorsInNode</a></p></div><a role="button" data-toggle="collapse" data-target="#0" aria-expanded="false" aria-controls="0" class="btn btn-default btn-sm">Source</a>
+          <div id="0" class="collapse">
+            <pre><code class="language-javascript">class RavelError extends Error {</code></pre>
+          </div>
+          <section id="constructor">
+            <h1>constructor</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-success radius ctx-type">constructor</div><span>&nbsp;</span><span>RavelError.prototype.constructor()</span><span>&nbsp;</span>
+            </p>
+          </section>
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th style="width:20%">Option name</th>
+                <th style="width:20%">Type</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>msg</td>
+                <td>String</td>
+                <td><p>a message for this error</p></td>
+              </tr>
+              <tr>
+                <td>code</td>
+                <td>Number</td>
+                <td><p>an HTTP status code between 100 and 505.</p></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="description"><p>Construct a new Ravel.Error</p></div><a role="button" data-toggle="collapse" data-target="#1" aria-expanded="false" aria-controls="1" class="btn btn-default btn-sm">Source</a>
+          <div id="1" class="collapse">
+            <pre><code class="language-javascript">constructor(msg, code) {
+  super(msg);
+
+  if (code !== null &amp;&amp; code !== undefined &amp;&amp; (typeof code !== 'number' || (code &lt; 100 || code &gt; 505))) {
+    throw new Error(`HTTP status code ${code} for ${this.constructor.name} must be a number between 100 and 505`);
+  }
+
+  Error.captureStackTrace(this, this.constructor);
+  this.message = msg || '';
+  this.code = code || httpCodes.INTERNAL_SERVER_ERROR;
+}
+}</code></pre>
+          </div>
+          <section id="AccessError">
+            <h1>AccessError</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-success radius ctx-type">class</div><span>&nbsp;</span><span>new AccessError()</span><span>&nbsp;</span><span>&nbsp;</span><span class="label label-default">extends</span><span>&nbsp;</span><span>RavelError</span>
+            </p>
+          </section>
+          <div class="description"><p>Access Error - Thrown when a user attempts to utilize functionality they are<br />not authenticated to access due to lack of workspace membership</p></div><a role="button" data-toggle="collapse" data-target="#2" aria-expanded="false" aria-controls="2" class="btn btn-default btn-sm">Source</a>
+          <div id="2" class="collapse">
+            <pre><code class="language-javascript">class AccessError extends RavelError {</code></pre>
+          </div>
+          <section id="constructor">
+            <h1>constructor</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-success radius ctx-type">constructor</div><span>&nbsp;</span><span>AccessError.prototype.constructor()</span><span>&nbsp;</span>
+            </p>
+          </section>
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th style="width:20%">Option name</th>
+                <th style="width:20%">Type</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>msg</td>
+                <td>String</td>
+                <td><p>a message for this error</p></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="description"><p>Construct a new <code>Ravel.ApplicationError.Access</code></p></div><a role="button" data-toggle="collapse" data-target="#3" aria-expanded="false" aria-controls="3" class="btn btn-default btn-sm">Source</a>
+          <div id="3" class="collapse">
+            <pre><code class="language-javascript">constructor(msg) {
+  super(msg, httpCodes.FORBIDDEN);
+}
+}</code></pre>
+          </div>
+          <section id="AuthenticationError">
+            <h1>AuthenticationError</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-success radius ctx-type">class</div><span>&nbsp;</span><span>new AuthenticationError()</span><span>&nbsp;</span><span>&nbsp;</span><span class="label label-default">extends</span><span>&nbsp;</span><span>RavelError</span>
+            </p>
+          </section>
+          <div class="description"><p>Authentication Error - Most useful for creating authentication providers</p></div><a role="button" data-toggle="collapse" data-target="#4" aria-expanded="false" aria-controls="4" class="btn btn-default btn-sm">Source</a>
+          <div id="4" class="collapse">
+            <pre><code class="language-javascript">class AuthenticationError extends RavelError {</code></pre>
+          </div>
+          <section id="constructor">
+            <h1>constructor</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-success radius ctx-type">constructor</div><span>&nbsp;</span><span>AuthenticationError.prototype.constructor()</span><span>&nbsp;</span>
+            </p>
+          </section>
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th style="width:20%">Option name</th>
+                <th style="width:20%">Type</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>msg</td>
+                <td>String</td>
+                <td><p>a message for this error</p></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="description"><p>Construct a new <code>Ravel.ApplicationError.Authentication</code></p></div><a role="button" data-toggle="collapse" data-target="#5" aria-expanded="false" aria-controls="5" class="btn btn-default btn-sm">Source</a>
+          <div id="5" class="collapse">
+            <pre><code class="language-javascript">constructor(msg) {
+  super(msg, httpCodes.UNAUTHORIZED);
+}
+}</code></pre>
+          </div>
+          <section id="DuplicateEntryError">
+            <h1>DuplicateEntryError</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-success radius ctx-type">class</div><span>&nbsp;</span><span>new DuplicateEntryError()</span><span>&nbsp;</span><span>&nbsp;</span><span class="label label-default">extends</span><span>&nbsp;</span><span>RavelError</span>
+            </p>
+          </section>
+          <div class="description"><p>Duplicate Entry Error - Thrown when an attempt is made to insert a record<br />into the database which violates a uniqueness constraint</p></div><a role="button" data-toggle="collapse" data-target="#6" aria-expanded="false" aria-controls="6" class="btn btn-default btn-sm">Source</a>
+          <div id="6" class="collapse">
+            <pre><code class="language-javascript">class DuplicateEntryError extends RavelError {</code></pre>
+          </div>
+          <section id="constructor">
+            <h1>constructor</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-success radius ctx-type">constructor</div><span>&nbsp;</span><span>DuplicateEntryError.prototype.constructor()</span><span>&nbsp;</span>
+            </p>
+          </section>
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th style="width:20%">Option name</th>
+                <th style="width:20%">Type</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>msg</td>
+                <td>String</td>
+                <td><p>a message for this error</p></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="description"><p>Construct a new <code>Ravel.ApplicationError.DuplicateEntry</code></p></div><a role="button" data-toggle="collapse" data-target="#7" aria-expanded="false" aria-controls="7" class="btn btn-default btn-sm">Source</a>
+          <div id="7" class="collapse">
+            <pre><code class="language-javascript">constructor(msg) {
+  super(msg, httpCodes.CONFLICT);
+}
+}</code></pre>
+          </div>
+          <section id="IllegalValueError">
+            <h1>IllegalValueError</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-success radius ctx-type">class</div><span>&nbsp;</span><span>new IllegalValueError()</span><span>&nbsp;</span><span>&nbsp;</span><span class="label label-default">extends</span><span>&nbsp;</span><span>RavelError</span>
+            </p>
+          </section>
+          <div class="description"><p>Illegal Value Error - Thrown when the user supplies an illegal value</p></div><a role="button" data-toggle="collapse" data-target="#8" aria-expanded="false" aria-controls="8" class="btn btn-default btn-sm">Source</a>
+          <div id="8" class="collapse">
+            <pre><code class="language-javascript">class IllegalValueError extends RavelError {</code></pre>
+          </div>
+          <section id="constructor">
+            <h1>constructor</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-success radius ctx-type">constructor</div><span>&nbsp;</span><span>IllegalValueError.prototype.constructor()</span><span>&nbsp;</span>
+            </p>
+          </section>
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th style="width:20%">Option name</th>
+                <th style="width:20%">Type</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>msg</td>
+                <td>String</td>
+                <td><p>a message for this error</p></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="description"><p>Construct a new <code>Ravel.ApplicationError.IllegalValue</code></p></div><a role="button" data-toggle="collapse" data-target="#9" aria-expanded="false" aria-controls="9" class="btn btn-default btn-sm">Source</a>
+          <div id="9" class="collapse">
+            <pre><code class="language-javascript">constructor(msg) {
+  super(msg, httpCodes.BAD_REQUEST);
+}
+}</code></pre>
+          </div>
+          <section id="NotAllowedError">
+            <h1>NotAllowedError</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-success radius ctx-type">class</div><span>&nbsp;</span><span>new NotAllowedError()</span><span>&nbsp;</span><span>&nbsp;</span><span class="label label-default">extends</span><span>&nbsp;</span><span>RavelError</span>
+            </p>
+          </section>
+          <div class="description"><p>Not Allowed Error - Used to mark API functionality which is not permitted<br />to be accessed under the current application configuration</p></div><a role="button" data-toggle="collapse" data-target="#10" aria-expanded="false" aria-controls="10" class="btn btn-default btn-sm">Source</a>
+          <div id="10" class="collapse">
+            <pre><code class="language-javascript">class NotAllowedError extends RavelError {</code></pre>
+          </div>
+          <section id="constructor">
+            <h1>constructor</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-success radius ctx-type">constructor</div><span>&nbsp;</span><span>NotAllowedError.prototype.constructor()</span><span>&nbsp;</span>
+            </p>
+          </section>
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th style="width:20%">Option name</th>
+                <th style="width:20%">Type</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>msg</td>
+                <td>String</td>
+                <td><p>a message for this error</p></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="description"><p>Construct a new <code>Ravel.ApplicationError.NotAllowed</code></p></div><a role="button" data-toggle="collapse" data-target="#11" aria-expanded="false" aria-controls="11" class="btn btn-default btn-sm">Source</a>
+          <div id="11" class="collapse">
+            <pre><code class="language-javascript">constructor(msg) {
+  super(msg, httpCodes.METHOD_NOT_ALLOWED);
+}
+}</code></pre>
+          </div>
+          <section id="NotFoundError">
+            <h1>NotFoundError</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-success radius ctx-type">class</div><span>&nbsp;</span><span>new NotFoundError()</span><span>&nbsp;</span><span>&nbsp;</span><span class="label label-default">extends</span><span>&nbsp;</span><span>RavelError</span>
+            </p>
+          </section>
+          <div class="description"><p>Not Found Error - Thrown when something is expected to exist, but is not found.</p></div><a role="button" data-toggle="collapse" data-target="#12" aria-expanded="false" aria-controls="12" class="btn btn-default btn-sm">Source</a>
+          <div id="12" class="collapse">
+            <pre><code class="language-javascript">class NotFoundError extends RavelError {</code></pre>
+          </div>
+          <section id="constructor">
+            <h1>constructor</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-success radius ctx-type">constructor</div><span>&nbsp;</span><span>NotFoundError.prototype.constructor()</span><span>&nbsp;</span>
+            </p>
+          </section>
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th style="width:20%">Option name</th>
+                <th style="width:20%">Type</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>msg</td>
+                <td>String</td>
+                <td><p>a message for this error</p></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="description"><p>Construct a new <code>Ravel.ApplicationError.NotFound</code></p></div><a role="button" data-toggle="collapse" data-target="#13" aria-expanded="false" aria-controls="13" class="btn btn-default btn-sm">Source</a>
+          <div id="13" class="collapse">
+            <pre><code class="language-javascript">constructor(msg) {
+  super(msg, httpCodes.NOT_FOUND);
+}
+}</code></pre>
+          </div>
+          <section id="NotImplementedError">
+            <h1>NotImplementedError</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-success radius ctx-type">class</div><span>&nbsp;</span><span>new NotImplementedError()</span><span>&nbsp;</span><span>&nbsp;</span><span class="label label-default">extends</span><span>&nbsp;</span><span>RavelError</span>
+            </p>
+          </section>
+          <div class="description"><p>Not Implemented Error - Used to mark API functionality which has not yet<br />been implemented</p></div><a role="button" data-toggle="collapse" data-target="#14" aria-expanded="false" aria-controls="14" class="btn btn-default btn-sm">Source</a>
+          <div id="14" class="collapse">
+            <pre><code class="language-javascript">class NotImplementedError extends RavelError {</code></pre>
+          </div>
+          <section id="constructor">
+            <h1>constructor</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-success radius ctx-type">constructor</div><span>&nbsp;</span><span>NotImplementedError.prototype.constructor()</span><span>&nbsp;</span>
+            </p>
+          </section>
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th style="width:20%">Option name</th>
+                <th style="width:20%">Type</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>msg</td>
+                <td>String</td>
+                <td><p>a message for this error</p></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="description"><p>Construct a new <code>Ravel.ApplicationError.NotImplemented</code></p></div><a role="button" data-toggle="collapse" data-target="#15" aria-expanded="false" aria-controls="15" class="btn btn-default btn-sm">Source</a>
+          <div id="15" class="collapse">
+            <pre><code class="language-javascript">constructor(msg) {
+  super(msg, httpCodes.NOT_IMPLEMENTED);
+}
+}</code></pre>
+          </div>
+          <section id="RangeOutOfBoundsError">
+            <h1>RangeOutOfBoundsError</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-success radius ctx-type">class</div><span>&nbsp;</span><span>new RangeOutOfBoundsError()</span><span>&nbsp;</span><span>&nbsp;</span><span class="label label-default">extends</span><span>&nbsp;</span><span>RavelError</span>
+            </p>
+          </section>
+          <div class="description"><p>Range Out Of Bounds Error - Used when a range of data is requested from a set<br />which is outside of the bounds of that set.</p></div><a role="button" data-toggle="collapse" data-target="#16" aria-expanded="false" aria-controls="16" class="btn btn-default btn-sm">Source</a>
+          <div id="16" class="collapse">
+            <pre><code class="language-javascript">class RangeOutOfBoundsError extends RavelError {</code></pre>
+          </div>
+          <section id="constructor">
+            <h1>constructor</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-success radius ctx-type">constructor</div><span>&nbsp;</span><span>RangeOutOfBoundsError.prototype.constructor()</span><span>&nbsp;</span>
+            </p>
+          </section>
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th style="width:20%">Option name</th>
+                <th style="width:20%">Type</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>msg</td>
+                <td>String</td>
+                <td><p>a message for this error</p></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="description"><p>Construct a new <code>Ravel.ApplicationError.RangeOutOfBounds</code></p></div><a role="button" data-toggle="collapse" data-target="#17" aria-expanded="false" aria-controls="17" class="btn btn-default btn-sm">Source</a>
+          <div id="17" class="collapse">
+            <pre><code class="language-javascript">constructor(msg) {
+  super(msg, httpCodes.REQUESTED_RANGE_NOT_SATISFIABLE);
+}
+}</code></pre>
+          </div>
+          <section id="exports">
+            <h1>exports</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-success radius ctx-type">Object</div>
+            </p>
+          </section>
+          <div class="description"><p>Export Ravel built-in errors as an Object.</p></div><a role="button" data-toggle="collapse" data-target="#18" aria-expanded="false" aria-controls="18" class="btn btn-default btn-sm">Source</a>
+          <div id="18" class="collapse">
+            <pre><code class="language-javascript">module.exports = {
+  General: RavelError,
+  Access: AccessError,
+  Authentication: AuthenticationError,
+  DuplicateEntry: DuplicateEntryError,
+  IllegalValue: IllegalValueError,
+  NotAllowed: NotAllowedError,
+  NotFound: NotFoundError,
+  NotImplemented:NotImplementedError,
+  RangeOutOfBounds:RangeOutOfBoundsError
+};</code></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer class="footer">
+      <div class="container">
+        <p>Documentation generated with&nbsp;<a href="https://github.com/mr-doc/mr-doc">Mr. Doc</a> created by&nbsp;<a href="https://twitter.com/FGRibreau" data-show-count="false" class="twitter-follow-button">Francois-Guillaume Ribreau</a></p>
+        <p>Mr. Doc is sponsored by&nbsp;<a href="http://bringr.net/?btt" title="Outil d'analyse des réseaux sociaux" class="bringr">Bringr</a> and&nbsp;<a href="https://redsmin.com/?btt" title="Full Redis GUI" class="redsmin">Redsmin</a></p>
+        <p>Theme borrowed from Twitter Bootstrap</p>
+      </div>
+    </footer>
+    <script src="../js/twitter-widget.min.js"></script>
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/prism.min.js"></script>
+    <script src="../js/index.min.js"></script>
+  </body>
+</html>

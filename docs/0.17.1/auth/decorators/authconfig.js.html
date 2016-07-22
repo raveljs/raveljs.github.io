@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width" charset="utf-8">
+    <title>Ravel 0.17.1 API Reference</title>
+    <link rel="stylesheet" href="../../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="../../css/prism.min.css">
+    <link rel="stylesheet" href="../../css/index.min.css">
+    <link rel="stylesheet" href="../../css/docs.min.css">
+  </head>
+  <body data-spy="scroll" data-target=".scrollspy">
+    <header id="overview" class="jumbotron subhead">
+      <div class="container"><img src="../../css/logo2.png">
+        <h1>Ravel 0.17.1 API Reference</h1>
+      </div>
+    </header>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-3 bs-docs-sidebar">
+          <ul class="nav nav-list bs-docs-sidenav affix-top">
+            <li><a href="../../index.html">Main</a></li>
+            <li><a href="../../auth/authentication_provider.js.html">auth/authentication_provider.js</a></li>
+            <li class="active"><a href="../../auth/decorators/authconfig.js.html">auth/decorators/authconfig.js</a></li>
+            <li><a href="../../auth/decorators/authenticated.js.html">auth/decorators/authenticated.js</a></li>
+            <li><a href="../../core/decorators/before.js.html">core/decorators/before.js</a></li>
+            <li><a href="../../core/decorators/inject.js.html">core/decorators/inject.js</a></li>
+            <li><a href="../../core/decorators/lifecycle.js.html">core/decorators/lifecycle.js</a></li>
+            <li><a href="../../core/decorators/mapping.js.html">core/decorators/mapping.js</a></li>
+            <li><a href="../../core/module.js.html">core/module.js</a></li>
+            <li><a href="../../core/modules.js.html">core/modules.js</a></li>
+            <li><a href="../../core/params.js.html">core/params.js</a></li>
+            <li><a href="../../core/reflect.js.html">core/reflect.js</a></li>
+            <li><a href="../../core/resource.js.html">core/resource.js</a></li>
+            <li><a href="../../core/resources.js.html">core/resources.js</a></li>
+            <li><a href="../../core/routes.js.html">core/routes.js</a></li>
+            <li><a href="../../db/database_provider.js.html">db/database_provider.js</a></li>
+            <li><a href="../../db/decorators/transaction.js.html">db/decorators/transaction.js</a></li>
+            <li><a href="../../ravel.js.html">ravel.js</a></li>
+            <li><a href="../../util/application_error.js.html">util/application_error.js</a></li>
+            <li><a href="../../util/http_codes.js.html">util/http_codes.js</a></li>
+            <li><a href="../../util/log.js.html">util/log.js</a></li>
+          </ul>
+          <div class="scrollspy">
+            <ul class="nav nav-list bs-docs-sidenav affix-top">
+              <li><a href="#authconfig"><i class="alert alert-info"></i><span>authconfig</span></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-sm-9">
+          <section id="authconfig">
+            <h1>authconfig</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-info radius ctx-type">function</div><span>&nbsp;</span><span>authconfig()</span><span>&nbsp;</span>
+            </p>
+          </section>
+          <div class="description"><p>&#64;authconfig</p><p>A decorator for a module, indicating that it will offer<br />specific functions which encapsulate the configuration<br />of passport.js. For more information on how to create<br />an &#64;authconfig module, please see the README for<br />a Ravel AuthenticationProvider.</p></div><a role="button" data-toggle="collapse" data-target="#0" aria-expanded="false" aria-controls="0" class="btn btn-default btn-sm">Source</a>
+          <div id="0" class="collapse">
+            <pre><code class="language-javascript">function authconfig(target) {
+  Metadata.putClassMeta(target.prototype, '@authconfig', 'enabled', true);
+
+  if (!target.prototype.serializeUser) {
+    target.prototype.serializeUser = function(profile) { //eslint-disable-line no-unused-vars
+      return Promise.reject(new ApplicationError.NotImplemented(
+        `An authentication provider was specified, but no @authconfig Module was
+        supplied with an implemented serializeUser() method`));
+    };
+  }
+  if (!target.prototype.deserializeUser) {
+    target.prototype.deserializeUser = function(userId) { //eslint-disable-line no-unused-vars
+      return Promise.reject(new ApplicationError.NotImplemented(
+        `An authentication provider was specified, but no @authconfig Module was
+        supplied with an implemented deserializeUser() method`));
+    };
+  }
+  if (!target.prototype.verify) {
+    // args should be tokens, username/pw, etc.
+    target.prototype.verify = function(
+      providerName, ...args //eslint-disable-line no-unused-vars
+    ) {
+      return Promise.reject(new ApplicationError.NotImplemented(
+        `An authentication provider was specified, but no @authconfig Module was
+        supplied with an implemented verify() method.`));
+    };
+  }
+  if (!target.prototype.deserializeOrCreateUser) {
+    target.prototype.deserializeOrCreateUser = function(profile) { //eslint-disable-line no-unused-vars
+      return Promise.reject(new ApplicationError.NotImplemented(
+        'An authentication provider was specified, but no @authconfig Module was ' +
+        'supplied with an implemented deserializeOrCreateUser()'));
+    };
+  }
+};</code></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer class="footer">
+      <div class="container">
+        <p>Documentation generated with&nbsp;<a href="https://github.com/mr-doc/mr-doc">Mr. Doc</a> created by&nbsp;<a href="https://twitter.com/FGRibreau" data-show-count="false" class="twitter-follow-button">Francois-Guillaume Ribreau</a></p>
+        <p>Mr. Doc is sponsored by&nbsp;<a href="http://bringr.net/?btt" title="Outil d'analyse des réseaux sociaux" class="bringr">Bringr</a> and&nbsp;<a href="https://redsmin.com/?btt" title="Full Redis GUI" class="redsmin">Redsmin</a></p>
+        <p>Theme borrowed from Twitter Bootstrap</p>
+      </div>
+    </footer>
+    <script src="../../js/twitter-widget.min.js"></script>
+    <script src="../../js/jquery.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <script src="../../js/prism.min.js"></script>
+    <script src="../../js/index.min.js"></script>
+  </body>
+</html>

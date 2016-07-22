@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width" charset="utf-8">
+    <title>Ravel 0.17.0 API Reference</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="../css/prism.min.css">
+    <link rel="stylesheet" href="../css/index.min.css">
+    <link rel="stylesheet" href="../css/docs.min.css">
+  </head>
+  <body data-spy="scroll" data-target=".scrollspy">
+    <header id="overview" class="jumbotron subhead">
+      <div class="container"><img src="../css/logo2.png">
+        <h1>Ravel 0.17.0 API Reference</h1>
+      </div>
+    </header>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-3 bs-docs-sidebar">
+          <ul class="nav nav-list bs-docs-sidenav affix-top">
+            <li><a href="../index.html">Main</a></li>
+            <li><a href="../auth/authentication_provider.js.html">auth/authentication_provider.js</a></li>
+            <li><a href="../auth/decorators/authconfig.js.html">auth/decorators/authconfig.js</a></li>
+            <li><a href="../auth/decorators/authenticated.js.html">auth/decorators/authenticated.js</a></li>
+            <li><a href="../core/decorators/before.js.html">core/decorators/before.js</a></li>
+            <li><a href="../core/decorators/inject.js.html">core/decorators/inject.js</a></li>
+            <li><a href="../core/decorators/lifecycle.js.html">core/decorators/lifecycle.js</a></li>
+            <li><a href="../core/decorators/mapping.js.html">core/decorators/mapping.js</a></li>
+            <li><a href="../core/module.js.html">core/module.js</a></li>
+            <li><a href="../core/modules.js.html">core/modules.js</a></li>
+            <li><a href="../core/params.js.html">core/params.js</a></li>
+            <li><a href="../core/reflect.js.html">core/reflect.js</a></li>
+            <li><a href="../core/resource.js.html">core/resource.js</a></li>
+            <li><a href="../core/resources.js.html">core/resources.js</a></li>
+            <li class="active"><a href="../core/routes.js.html">core/routes.js</a></li>
+            <li><a href="../db/database_provider.js.html">db/database_provider.js</a></li>
+            <li><a href="../db/decorators/transaction.js.html">db/decorators/transaction.js</a></li>
+            <li><a href="../ravel.js.html">ravel.js</a></li>
+            <li><a href="../util/application_error.js.html">util/application_error.js</a></li>
+            <li><a href="../util/http_codes.js.html">util/http_codes.js</a></li>
+            <li><a href="../util/log.js.html">util/log.js</a></li>
+          </ul>
+          <div class="scrollspy">
+            <ul class="nav nav-list bs-docs-sidenav affix-top">
+              <li><a href="#Routes"><i class="alert alert-success"></i><span>Routes</span></a>
+              </li>
+              <li><a href="#constructor"><i class="alert alert-success"></i><span>constructor</span></a>
+              </li>
+              <li><a href="#log"><i class="alert alert-success"></i><span>log</span></a>
+              </li>
+              <li><a href="#kvstore"><i class="alert alert-success"></i><span>kvstore</span></a>
+              </li>
+              <li><a href="#params"><i class="alert alert-success"></i><span>params</span></a>
+              </li>
+              <li><a href="#mapping"><i class="alert alert-success"></i><span>mapping</span></a>
+              </li>
+              <li><a href="#before"><i class="alert alert-success"></i><span>before</span></a>
+              </li>
+              <li><a href="#transaction"><i class="alert alert-success"></i><span>transaction</span></a>
+              </li>
+              <li><a href="#authenticated"><i class="alert alert-success"></i><span>authenticated</span></a>
+              </li>
+              <li><a href="#routes"><i class="alert alert-info"></i><span>routes</span></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-sm-9">
+          <section id="Routes">
+            <h1>Routes</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-success radius ctx-type">class</div><span>&nbsp;</span><span>new Routes()</span><span>&nbsp;</span>
+            </p>
+          </section>
+          <div class="description"><p>Provides Ravel with a simple mechanism for registering <code>koa</code> routes, which should generally only be used<br />for serving templated pages or static content (not for building RESTful APIs, for which <code>Ravel.Resource</code><br />is more applicable). Clients extend this abstract superclass to create a <code>Routes</code> module.</p></div><a role="button" data-toggle="collapse" data-target="#0" aria-expanded="false" aria-controls="0" class="btn btn-default btn-sm">Source</a>
+          <div id="0" class="collapse">
+            <pre><code class="language-javascript">class Routes {</code></pre>
+          </div>
+          <h3 class="muted">Example</h3>
+          <pre><code class="language-javascript">  const inject = require('ravel').inject;
+  const Routes = require('ravel').Routes;
+  const mapping = Routes.mapping;
+  const before = Routes.before;
+
+  // you can inject your own Modules and npm dependencies into Routes
+  &#64;inject('koa-better-body', 'fs', 'custom-module')
+  class MyRoutes extends Routes {
+    constructor(bodyParser, fs, custom) {
+      super('/'); // base path for all routes in this class
+      this.bodyParser = bodyParser(); // make bodyParser middleware available
+      this.fs = fs;
+      this.custom = custom;
+    }
+
+    // will map to /app
+    &#64;mapping(Routes.GET, 'app');
+    &#64;before('bodyParser') // use bodyParser middleware before handler
+    appHandler(ctx) {
+      // ctx is a koa context object.
+      // return a Promise, or simply use ctx to create a body/status code for response
+      // reject with a Ravel.Error to automatically set an error status code
+    }
+  }
+
+  module.exports = MyRoutes;</code></pre>
+          <div class="description"><h2>HTTP Methods</h2>
+</div>
+          <div class="description"><p>Used with the @mapping decorator to indicate the <code>GET</code> HTTP verb</p></div><a role="button" data-toggle="collapse" data-target="#2" aria-expanded="false" aria-controls="2" class="btn btn-default btn-sm">Source</a>
+          <div id="2" class="collapse">
+            <pre><code class="language-javascript">static get GET() { return GET; }</code></pre>
+          </div>
+          <h3 class="muted">Example</h3>
+          <pre><code class="language-javascript">  const Routes = require('ravel').Routes;
+  const mapping = Routes.mapping;
+  class MyRoutes extends Routes {
+    constructor() {
+      super('/');
+    }
+    &#64;mapping(Routes.GET, '/something')
+    handler(ctx) {
+      //...
+    }
+  }</code></pre>
+          <div class="description"><p>Used with the @mapping decorator to indicate the <code>POST</code> HTTP verb</p></div><a role="button" data-toggle="collapse" data-target="#3" aria-expanded="false" aria-controls="3" class="btn btn-default btn-sm">Source</a>
+          <div id="3" class="collapse">
+            <pre><code class="language-javascript">static get POST() { return POST; }</code></pre>
+          </div>
+          <h3 class="muted">Example</h3>
+          <pre><code class="language-javascript">  const Routes = require('ravel').Routes;
+  const mapping = Routes.mapping;
+  class MyRoutes extends Routes {
+    constructor() {
+      super('/');
+    }
+    &#64;mapping(Routes.POST, '/something')
+    handler(ctx) {
+      //...
+    }
+  }</code></pre>
+          <div class="description"><p>Used with the @mapping decorator to indicate the <code>PUT</code> HTTP verb</p></div><a role="button" data-toggle="collapse" data-target="#4" aria-expanded="false" aria-controls="4" class="btn btn-default btn-sm">Source</a>
+          <div id="4" class="collapse">
+            <pre><code class="language-javascript">static get PUT() { return PUT; }</code></pre>
+          </div>
+          <h3 class="muted">Example</h3>
+          <pre><code class="language-javascript">  const Routes = require('ravel').Routes;
+  const mapping = Routes.mapping;
+  class MyRoutes extends Routes {
+    constructor() {
+      super('/');
+    }
+    &#64;mapping(Routes.PUT, '/something')
+    handler(ctx) {
+      //...
+    }
+  }</code></pre>
+          <div class="description"><p>Used with the @mapping decorator to indicate the <code>DELETE</code> HTTP verb</p></div><a role="button" data-toggle="collapse" data-target="#5" aria-expanded="false" aria-controls="5" class="btn btn-default btn-sm">Source</a>
+          <div id="5" class="collapse">
+            <pre><code class="language-javascript">static get DELETE() { return DELETE; }</code></pre>
+          </div>
+          <h3 class="muted">Example</h3>
+          <pre><code class="language-javascript">  const Routes = require('ravel').Routes;
+  const mapping = Routes.mapping;
+  class MyRoutes extends Routes {
+    constructor() {
+      super('/');
+    }
+    &#64;mapping(Routes.DELETE, '/something')
+    handler(ctx) {
+      //...
+    }
+  }</code></pre>
+          <section id="constructor">
+            <h1>constructor</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-success radius ctx-type">constructor</div><span>&nbsp;</span><span>constructor()</span><span>&nbsp;</span>
+            </p>
+          </section>
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th style="width:20%">Option name</th>
+                <th style="width:20%">Type</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>basePath</td>
+                <td>String</td>
+                <td><p>The base path for all routes in this class. Should be unique within an application.</p></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="description"><p>Subclasses must call <code>super(basePath)</code></p></div><a role="button" data-toggle="collapse" data-target="#6" aria-expanded="false" aria-controls="6" class="btn btn-default btn-sm">Source</a>
+          <div id="6" class="collapse">
+            <pre><code class="language-javascript">constructor(basePath) {
+  if (basePath === undefined) {
+    throw new ApplicationError.IllegalValue(
+      `Routes module \'${this.constructor.name}\' must call super(basePath)`);
+  }
+  // normalize and validate base path
+  const bp = upath.normalize(basePath);
+  // if routes with this base path has already been regsitered, error out
+  if (endpoints.has(bp)) {
+    throw new ApplicationError.DuplicateEntry(
+      `Resource with name \'${bp}\' has already been registered.`);
+  } else {
+    this.basePath = bp;
+    endpoints.set(bp, true);
+  }
+}
+
+/**
+ * A reference to the ravel instance with which this Module is registered
+ * @type {Ravel}
+ */
+get app() {
+  return Metadata.getClassMetaValue(Object.getPrototypeOf(this), 'ravel', 'instance');
+}
+
+/**
+ * Ravel's pre-packaged error types
+ * @type {Ravel.Error}
+ */
+get ApplicationError() {
+  return this.app.ApplicationError;
+}</code></pre>
+          </div>
+          <h3 class="muted">Example</h3>
+          <pre><code class="language-javascript">  const Routes = require('ravel').Routes;
+  const mapping = Routes.mapping;
+  class MyRoutes extends Routes {
+    constructor() {
+      super('/user/:userId');
+    }
+
+    // will map to /user/:id/projects/:id
+    &#64;mapping(Routes.GET, '/projects/:id')
+    handler(ctx) {
+      // can access ctx.params.userId and ctx.params.id here
+      // ...
+    }
+  }</code></pre>
+          <section id="log">
+            <h1>log</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-success radius ctx-type">Logger</div>
+            </p>
+          </section>
+          <div class="description"><p>The logger for this <code>Routes</code> class. Will log messages prefixed with the <code>Routes</code> class name.<br />See <a href="util/log.js.html"><code>util/log.js</code></a> for more information.</p></div><a role="button" data-toggle="collapse" data-target="#7" aria-expanded="false" aria-controls="7" class="btn btn-default btn-sm">Source</a>
+          <div id="7" class="collapse">
+            <pre><code class="language-javascript">get log() {
+  return this.app.log.getLogger(this.name);
+}</code></pre>
+          </div>
+          <section id="kvstore">
+            <h1>kvstore</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-success radius ctx-type">Object</div>
+            </p>
+          </section>
+          <div class="description"><p>The active Ravel key-value store connection (redis).<br />See <a href="../util/kvstore.js.html">util/kvstore</a> for more information.</p></div><a role="button" data-toggle="collapse" data-target="#8" aria-expanded="false" aria-controls="8" class="btn btn-default btn-sm">Source</a>
+          <div id="8" class="collapse">
+            <pre><code class="language-javascript">get kvstore() {
+  return this.app.kvstore;
+}</code></pre>
+          </div>
+          <section id="params">
+            <h1>params</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-success radius ctx-type">Object</div>
+            </p>
+          </section>
+          <div class="description"><p>An Object with a get() method, which allows easy access to ravel.get()<br />See <a href="params.js.html">core/params</a> for more information.</p></div><a role="button" data-toggle="collapse" data-target="#9" aria-expanded="false" aria-controls="9" class="btn btn-default btn-sm">Source</a>
+          <div id="9" class="collapse">
+            <pre><code class="language-javascript">get params() {
+  const ravelInstance = this.app;
+  return {
+    get: ravelInstance.get.bind(ravelInstance)
+  };
+}
+}</code></pre>
+          </div>
+          <h3 class="muted">Example</h3>
+          <pre><code class="language-javascript">  this.params.get('some ravel parameter');</code></pre>
+          <section id="mapping">
+            <h1>mapping</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-success radius ctx-type">property</div><span>&nbsp;</span><span>Routes.mapping</span><span>&nbsp;</span>
+            </p>
+          </section>
+          <div class="description"><p>The <code>@mapping</code> decorator for <code>Routes</code> classes.</p><p>See <a href="decorators/mapping.js.html">decorators/mapping</a> for more information.</p></div><a role="button" data-toggle="collapse" data-target="#10" aria-expanded="false" aria-controls="10" class="btn btn-default btn-sm">Source</a>
+          <div id="10" class="collapse">
+            <pre><code class="language-javascript">Routes.mapping = require('./decorators/mapping');</code></pre>
+          </div>
+          <section id="before">
+            <h1>before</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-success radius ctx-type">property</div><span>&nbsp;</span><span>Routes.before</span><span>&nbsp;</span>
+            </p>
+          </section>
+          <div class="description"><p>The <code>@before</code> decorator for <code>Routes</code> and <code>Resource</code> classes.</p><p>See <a href="decorators/before.js.html">decorators/before</a> for more information.</p></div><a role="button" data-toggle="collapse" data-target="#11" aria-expanded="false" aria-controls="11" class="btn btn-default btn-sm">Source</a>
+          <div id="11" class="collapse">
+            <pre><code class="language-javascript">Routes.before = require('./decorators/before');</code></pre>
+          </div>
+          <section id="transaction">
+            <h1>transaction</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-success radius ctx-type">property</div><span>&nbsp;</span><span>Routes.transaction</span><span>&nbsp;</span>
+            </p>
+          </section>
+          <div class="description"><p>The <code>@transaction</code> decorator for <code>Routes</code> and <code>Resource</code> classes.</p><p>See <a href="../db/decorators/transaction.js.html">db/decorators/transaction</a> for more information.</p></div><a role="button" data-toggle="collapse" data-target="#12" aria-expanded="false" aria-controls="12" class="btn btn-default btn-sm">Source</a>
+          <div id="12" class="collapse">
+            <pre><code class="language-javascript">Routes.transaction = require('../db/decorators/transaction');</code></pre>
+          </div>
+          <section id="authenticated">
+            <h1>authenticated</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-success radius ctx-type">property</div><span>&nbsp;</span><span>Routes.authenticated</span><span>&nbsp;</span>
+            </p>
+          </section>
+          <div class="description"><p>The <code>@authenticated</code> decorator for <code>Routes</code> and <code>Resource</code> classes.</p><p>See <a href="../auth/decorators/authenticated.js.html">auth/decorators/authenticated</a> for more information.</p></div><a role="button" data-toggle="collapse" data-target="#13" aria-expanded="false" aria-controls="13" class="btn btn-default btn-sm">Source</a>
+          <div id="13" class="collapse">
+            <pre><code class="language-javascript">Routes.authenticated = require('../auth/decorators/authenticated');</code></pre>
+          </div>
+          <section id="routes">
+            <h1>routes</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-info radius ctx-type">method</div><span>&nbsp;</span><span>Ravel.prototype.routes()</span><span>&nbsp;</span>
+            </p>
+          </section>
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th style="width:20%">Option name</th>
+                <th style="width:20%">Type</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>routesModulePath</td>
+                <td>String</td>
+                <td><p>the path of the routes module to require(...)</p></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="description"><p>Register a bunch of plain GET koa middleware (ejs, static, etc.)<br />with Ravel which will be available, by name, at the given<br />base path.</p></div><a role="button" data-toggle="collapse" data-target="#14" aria-expanded="false" aria-controls="14" class="btn btn-default btn-sm">Source</a>
+          <div id="14" class="collapse">
+            <pre><code class="language-javascript">Ravel.prototype.routes = function(routesModulePath) {
+  //if a module with this name has already been regsitered, error out
+  if (this[symbols.routesFactories][routesModulePath]) {
+    throw new this.ApplicationError.DuplicateEntry(
+      `Route module \'${routesModulePath}\' has already been registered.`);
+  }
+
+  const routesClass = require(upath.join(this.cwd, routesModulePath));
+  if (routesClass.prototype instanceof Routes) {
+    // store reference to this ravel instance in metadata
+    Metadata.putClassMeta(routesClass.prototype, 'ravel', 'instance', this);
+    //store path to module file in metadata
+    Metadata.putClassMeta(routesClass.prototype, 'source', 'path', routesModulePath);
+    // store known routes module with path as the key, so someone can reflect on the class
+    this[symbols.registerClassFunc](routesModulePath, routesClass);
+    //build routes instantiation function, which takes the
+    //current koa app as an argument
+    this[symbols.routesFactories][routesModulePath] = (koaRouter) =&gt; {
+      const routes = this[symbols.injector].inject({}, routesClass);
+      routes[symbols.routesInitFunc](this, koaRouter);
+      return routes;
+    };
+  } else {
+    throw new this.ApplicationError.IllegalValue(
+      `Routes Module with path ${routesModulePath} must be a subclass of Ravel.Routes`);
+  }
+};
+
+/**
+ * Performs routes initialization, executing routes factories
+ * in dependency order in Ravel.init()
+ *
+ * @param router koa router
+ */
+Ravel.prototype[symbols.routesInit] = function(router) {
+  for (let r of Object.keys(this[symbols.routesFactories])) {
+    this[symbols.routesFactories][r](router);
+  }
+};
+};
+
+/*!
+ * Export `Routes` class
+ */
+module.exports.Routes = Routes;</code></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer class="footer">
+      <div class="container">
+        <p>Documentation generated with&nbsp;<a href="https://github.com/mr-doc/mr-doc">Mr. Doc</a> created by&nbsp;<a href="https://twitter.com/FGRibreau" data-show-count="false" class="twitter-follow-button">Francois-Guillaume Ribreau</a></p>
+        <p>Mr. Doc is sponsored by&nbsp;<a href="http://bringr.net/?btt" title="Outil d'analyse des réseaux sociaux" class="bringr">Bringr</a> and&nbsp;<a href="https://redsmin.com/?btt" title="Full Redis GUI" class="redsmin">Redsmin</a></p>
+        <p>Theme borrowed from Twitter Bootstrap</p>
+      </div>
+    </footer>
+    <script src="../js/twitter-widget.min.js"></script>
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/prism.min.js"></script>
+    <script src="../js/index.min.js"></script>
+  </body>
+</html>

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width" charset="utf-8">
+    <title>Ravel 0.17.0 API Reference</title>
+    <link rel="stylesheet" href="../../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="../../css/prism.min.css">
+    <link rel="stylesheet" href="../../css/index.min.css">
+    <link rel="stylesheet" href="../../css/docs.min.css">
+  </head>
+  <body data-spy="scroll" data-target=".scrollspy">
+    <header id="overview" class="jumbotron subhead">
+      <div class="container"><img src="../../css/logo2.png">
+        <h1>Ravel 0.17.0 API Reference</h1>
+      </div>
+    </header>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-3 bs-docs-sidebar">
+          <ul class="nav nav-list bs-docs-sidenav affix-top">
+            <li><a href="../../index.html">Main</a></li>
+            <li><a href="../../auth/authentication_provider.js.html">auth/authentication_provider.js</a></li>
+            <li><a href="../../auth/decorators/authconfig.js.html">auth/decorators/authconfig.js</a></li>
+            <li><a href="../../auth/decorators/authenticated.js.html">auth/decorators/authenticated.js</a></li>
+            <li><a href="../../core/decorators/before.js.html">core/decorators/before.js</a></li>
+            <li><a href="../../core/decorators/inject.js.html">core/decorators/inject.js</a></li>
+            <li><a href="../../core/decorators/lifecycle.js.html">core/decorators/lifecycle.js</a></li>
+            <li><a href="../../core/decorators/mapping.js.html">core/decorators/mapping.js</a></li>
+            <li><a href="../../core/module.js.html">core/module.js</a></li>
+            <li><a href="../../core/modules.js.html">core/modules.js</a></li>
+            <li><a href="../../core/params.js.html">core/params.js</a></li>
+            <li><a href="../../core/reflect.js.html">core/reflect.js</a></li>
+            <li><a href="../../core/resource.js.html">core/resource.js</a></li>
+            <li><a href="../../core/resources.js.html">core/resources.js</a></li>
+            <li><a href="../../core/routes.js.html">core/routes.js</a></li>
+            <li><a href="../../db/database_provider.js.html">db/database_provider.js</a></li>
+            <li class="active"><a href="../../db/decorators/transaction.js.html">db/decorators/transaction.js</a></li>
+            <li><a href="../../ravel.js.html">ravel.js</a></li>
+            <li><a href="../../util/application_error.js.html">util/application_error.js</a></li>
+            <li><a href="../../util/http_codes.js.html">util/http_codes.js</a></li>
+            <li><a href="../../util/log.js.html">util/log.js</a></li>
+          </ul>
+          <div class="scrollspy">
+            <ul class="nav nav-list bs-docs-sidenav affix-top">
+              <li><a href="#transaction"><i class="alert alert-info"></i><span>transaction</span></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-sm-9">
+          <section id="transaction">
+            <h1>transaction</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-info radius ctx-type">function</div><span>&nbsp;</span><span>transaction()</span><span>&nbsp;</span>
+            </p>
+          </section>
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th style="width:20%">Option name</th>
+                <th style="width:20%">Type</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>args</td>
+                <td>String</td>
+                <td><p>a list of database provider names to open connections for.</p></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="description"><p>The <code>@transaction</code> decorator for opening a transaction on a <code>Routes</code> or<br /><code>Resource</code> handler method. Facilitates transaction-per-request.<br />Can also be applied at the class-level to open connections for all handlers<br />in that <code>Route</code> or <code>Resource</code> class.</p><p>Connections are available within the handler as an object <code>ctx.transaction</code>, which<br />contains connections as values and <code>DatabaseProvider</code> names as keys. Connections<br />will be closed automatically when the endpoint responds (do not close them yourself),<br />and will automatically roll-back changes if a <code>DatabaseProvider</code> supports it (generally<br />a SQL-only feature).</p></div><a role="button" data-toggle="collapse" data-target="#0" aria-expanded="false" aria-controls="0" class="btn btn-default btn-sm">Source</a>
+          <div id="0" class="collapse">
+            <pre><code class="language-javascript">function transaction(...args) {
+  // handle @transaction at the method-level without arguments
+  if (args.length === 3 &amp;&amp; typeof args[0].constructor === 'function') {
+    Metadata.putMethodMeta(args[0], args[1], '@transaction', 'providers', []);
+  } else if (args.length === 1 &amp;&amp; typeof args[0] === 'function') {
+    // handle @transaction at the class-level without arguments
+    Metadata.putClassMeta(args[0].prototype, '@transaction', 'providers', []);
+  } else {
+    // handle @transaction() at the class and method-level with arguments
+    return function(target, key) {
+      args.forEach((name) =&gt; {
+        if (typeof name !== 'string') {
+          throw new ApplicationError.IllegalValue(
+            'Values supplied to @transaction decorator must be strings, and must match '+
+            'the name of a registered database provider');
+        }
+      });
+      if (key === undefined) {
+        Metadata.putClassMeta(target.prototype, '@transaction', 'providers', args);
+      } else {
+        Metadata.putMethodMeta(target, key, '@transaction', 'providers', args);
+      }
+    };
+  }
+}</code></pre>
+          </div>
+          <h3 class="muted">Example</h3>
+          <pre><code class="language-javascript">  // Note: decorator works the same way on Routes or Resource classes
+  const Routes = require('ravel').Routes;
+  const mapping = Routes.mapping;
+
+  class MyRoutes extends Routes {
+    constructor() {
+      super('/');
+    }
+
+    &#64;mapping(Routes.GET, 'app');
+    &#64;transaction // open all connections within this handler
+    appHandler(ctx) {
+      // ctx.transaction is an object containing
+      // keys for DatabaseProviders and values
+      // for their open connections
+    }
+
+    &#64;mapping(Routes.GET, 'something');
+    &#64;transaction('mysql', 'rethinkdb') // open one or more specific connections within this handler
+    somethingHandler(ctx) {
+      // can use ctx.transaction.mysql
+      // can use ctx.transaction.rethinkdb
+    }
+  }</code></pre>
+          <pre><code class="language-javascript">  // Note: decorator works the same way on Routes or Resource classes
+  const Resource = require('ravel').Resource;
+
+  &#64;transaction('mysql') // all handlers will have ctx.transaction.mysql
+  class MyResource extends Resource {
+    constructor() {
+      super('/');
+    }
+
+    post(ctx) {
+      // can use ctx.transaction.mysql
+    }
+  }</code></pre>
+        </div>
+      </div>
+    </div>
+    <footer class="footer">
+      <div class="container">
+        <p>Documentation generated with&nbsp;<a href="https://github.com/mr-doc/mr-doc">Mr. Doc</a> created by&nbsp;<a href="https://twitter.com/FGRibreau" data-show-count="false" class="twitter-follow-button">Francois-Guillaume Ribreau</a></p>
+        <p>Mr. Doc is sponsored by&nbsp;<a href="http://bringr.net/?btt" title="Outil d'analyse des réseaux sociaux" class="bringr">Bringr</a> and&nbsp;<a href="https://redsmin.com/?btt" title="Full Redis GUI" class="redsmin">Redsmin</a></p>
+        <p>Theme borrowed from Twitter Bootstrap</p>
+      </div>
+    </footer>
+    <script src="../../js/twitter-widget.min.js"></script>
+    <script src="../../js/jquery.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <script src="../../js/prism.min.js"></script>
+    <script src="../../js/index.min.js"></script>
+  </body>
+</html>

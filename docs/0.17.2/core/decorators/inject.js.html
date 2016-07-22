@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width" charset="utf-8">
+    <title>Ravel 0.17.2 API Reference</title>
+    <link rel="stylesheet" href="../../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="../../css/prism.min.css">
+    <link rel="stylesheet" href="../../css/index.min.css">
+    <link rel="stylesheet" href="../../css/docs.min.css">
+  </head>
+  <body data-spy="scroll" data-target=".scrollspy">
+    <header id="overview" class="jumbotron subhead">
+      <div class="container"><img src="../../css/logo2.png">
+        <h1>Ravel 0.17.2 API Reference</h1>
+      </div>
+    </header>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-3 bs-docs-sidebar">
+          <ul class="nav nav-list bs-docs-sidenav affix-top">
+            <li><a href="../../index.html">Main</a></li>
+            <li><a href="../../auth/authentication_provider.js.html">auth/authentication_provider.js</a></li>
+            <li><a href="../../auth/decorators/authconfig.js.html">auth/decorators/authconfig.js</a></li>
+            <li><a href="../../auth/decorators/authenticated.js.html">auth/decorators/authenticated.js</a></li>
+            <li><a href="../../core/decorators/before.js.html">core/decorators/before.js</a></li>
+            <li class="active"><a href="../../core/decorators/inject.js.html">core/decorators/inject.js</a></li>
+            <li><a href="../../core/decorators/lifecycle.js.html">core/decorators/lifecycle.js</a></li>
+            <li><a href="../../core/decorators/mapping.js.html">core/decorators/mapping.js</a></li>
+            <li><a href="../../core/module.js.html">core/module.js</a></li>
+            <li><a href="../../core/modules.js.html">core/modules.js</a></li>
+            <li><a href="../../core/params.js.html">core/params.js</a></li>
+            <li><a href="../../core/reflect.js.html">core/reflect.js</a></li>
+            <li><a href="../../core/resource.js.html">core/resource.js</a></li>
+            <li><a href="../../core/resources.js.html">core/resources.js</a></li>
+            <li><a href="../../core/routes.js.html">core/routes.js</a></li>
+            <li><a href="../../db/database_provider.js.html">db/database_provider.js</a></li>
+            <li><a href="../../db/decorators/transaction.js.html">db/decorators/transaction.js</a></li>
+            <li><a href="../../ravel.js.html">ravel.js</a></li>
+            <li><a href="../../util/application_error.js.html">util/application_error.js</a></li>
+            <li><a href="../../util/http_codes.js.html">util/http_codes.js</a></li>
+            <li><a href="../../util/log.js.html">util/log.js</a></li>
+          </ul>
+          <div class="scrollspy">
+            <ul class="nav nav-list bs-docs-sidenav affix-top">
+              <li><a href="#inject"><i class="alert alert-info"></i><span>inject</span></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-sm-9">
+          <section id="inject">
+            <h1>inject</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-info radius ctx-type">function</div><span>&nbsp;</span><span>inject()</span><span>&nbsp;</span>
+            </p>
+          </section>
+          <div class="description"><p>&#64;inject dependency injection decorator for Ravel <code>Modules</code>,<br /><code>Resources</code> and <code>Routes</code>.<br />Based on Aurelia @inject decorator, but without the<br />es6 module format. Since eliminating relative require()s<br />has always been one of the core goals of the Ravel<br />framework, this decorator takes strings instead of<br />actual references to require()d modules. This string<br />is either the name of the module to require, or the<br />registered name of a client Ravel Module. Ravel<br />Modules override npm modules.</p><p>This decorator simply annotates the class with modules which<br />should be injected when Ravel initializes. See <a href="../../util/injector.js.html">util/injector</a><br />for the actual DI implementation.</p></div><a role="button" data-toggle="collapse" data-target="#0" aria-expanded="false" aria-controls="0" class="btn btn-default btn-sm">Source</a>
+          <div id="0" class="collapse">
+            <pre><code class="language-javascript">const inject = function(...rest) {
+  return function(target) {
+    if (rest.length === 0)  {
+      throw new ApplicationError.NotFound(`Empty @inject supplied on ${typeof target}`);
+    }
+    for (let elem of rest) {
+      if (typeof elem !== 'string') {
+        throw new ApplicationError.IllegalValue('Values supplied to @inject decorator must be strings.');
+      }
+    }
+    Metadata.putClassMeta(target.prototype, '@inject', 'dependencies',
+      rest.concat(Metadata.getClassMetaValue(target.prototype, '@inject', 'dependencies', [])));
+  };
+};</code></pre>
+          </div>
+          <h3 class="muted">Example</h3>
+          <pre><code class="language-javascript">  //&#64;inject works the same way on Modules, Resources and Routes
+  const inject = require('ravel').inject;
+  const Module = require('ravel').Module;
+
+  &#64;inject('path', 'fs', 'custom-module')
+  class MyModule extends Module {
+    constructor(path, fs, custom) {
+      super();
+      this.path = path;
+      this.fs = fs;
+      this.custom = custom;
+    }
+
+    aMethod() {
+      // can access this.fs, this.path or this.custom
+    }
+  }</code></pre>
+        </div>
+      </div>
+    </div>
+    <footer class="footer">
+      <div class="container">
+        <p>Documentation generated with&nbsp;<a href="https://github.com/mr-doc/mr-doc">Mr. Doc</a> created by&nbsp;<a href="https://twitter.com/FGRibreau" data-show-count="false" class="twitter-follow-button">Francois-Guillaume Ribreau</a></p>
+        <p>Mr. Doc is sponsored by&nbsp;<a href="http://bringr.net/?btt" title="Outil d'analyse des réseaux sociaux" class="bringr">Bringr</a> and&nbsp;<a href="https://redsmin.com/?btt" title="Full Redis GUI" class="redsmin">Redsmin</a></p>
+        <p>Theme borrowed from Twitter Bootstrap</p>
+      </div>
+    </footer>
+    <script src="../../js/twitter-widget.min.js"></script>
+    <script src="../../js/jquery.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <script src="../../js/prism.min.js"></script>
+    <script src="../../js/index.min.js"></script>
+  </body>
+</html>
