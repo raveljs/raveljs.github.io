@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width" charset="utf-8">
+    <title>Ravel 0.17.11 API Reference</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="css/prism.min.css">
+    <link rel="stylesheet" href="css/index.min.css">
+    <link rel="stylesheet" href="css/docs.min.css">
+  </head>
+  <body data-spy="scroll" data-target=".scrollspy">
+    <header id="overview" class="jumbotron subhead">
+      <div class="container"><img src="css/logo2.png">
+        <h1>Ravel 0.17.11 API Reference</h1>
+      </div>
+    </header>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-3 bs-docs-sidebar">
+          <ul class="nav nav-list bs-docs-sidenav affix-top">
+            <li><a href="index.html">Main</a></li>
+            <li><a href="auth/authentication_provider.js.html">auth/authentication_provider.js</a></li>
+            <li><a href="auth/decorators/authconfig.js.html">auth/decorators/authconfig.js</a></li>
+            <li><a href="auth/decorators/authenticated.js.html">auth/decorators/authenticated.js</a></li>
+            <li><a href="core/decorators/before.js.html">core/decorators/before.js</a></li>
+            <li><a href="core/decorators/inject.js.html">core/decorators/inject.js</a></li>
+            <li><a href="core/decorators/lifecycle.js.html">core/decorators/lifecycle.js</a></li>
+            <li><a href="core/decorators/mapping.js.html">core/decorators/mapping.js</a></li>
+            <li><a href="core/module.js.html">core/module.js</a></li>
+            <li><a href="core/modules.js.html">core/modules.js</a></li>
+            <li><a href="core/params.js.html">core/params.js</a></li>
+            <li><a href="core/reflect.js.html">core/reflect.js</a></li>
+            <li><a href="core/resource.js.html">core/resource.js</a></li>
+            <li><a href="core/resources.js.html">core/resources.js</a></li>
+            <li><a href="core/routes.js.html">core/routes.js</a></li>
+            <li><a href="db/database_provider.js.html">db/database_provider.js</a></li>
+            <li><a href="db/decorators/transaction.js.html">db/decorators/transaction.js</a></li>
+            <li class="active"><a href="ravel.js.html">ravel.js</a></li>
+            <li><a href="util/application_error.js.html">util/application_error.js</a></li>
+            <li><a href="util/http_codes.js.html">util/http_codes.js</a></li>
+            <li><a href="util/log.js.html">util/log.js</a></li>
+          </ul>
+          <div class="scrollspy">
+            <ul class="nav nav-list bs-docs-sidenav affix-top">
+              <li><a href="#Ravel"><i class="alert alert-success"></i><span>Ravel</span></a>
+              </li>
+              <li><a href="#constructor"><i class="alert alert-success"></i><span>constructor</span></a>
+              </li>
+              <li><a href="#cwd"><i class="alert alert-success"></i><span>cwd</span></a>
+              </li>
+              <li><a href="#log"><i class="alert alert-success"></i><span>log</span></a>
+              </li>
+              <li><a href="#ApplicationError"><i class="alert alert-success"></i><span>ApplicationError</span></a>
+              </li>
+              <li><a href="#initialized"><i class="alert alert-success"></i><span>initialized</span></a>
+              </li>
+              <li><a href="#listening"><i class="alert alert-success"></i><span>listening</span></a>
+              </li>
+              <li><a href="#server"><i class="alert alert-success"></i><span>server</span></a>
+              </li>
+              <li><a href="#init"><i class="alert alert-info"></i><span>init</span></a>
+              </li>
+              <li><a href="#listen"><i class="alert alert-info"></i><span>listen</span></a>
+              </li>
+              <li><a href="#start"><i class="alert alert-info"></i><span>start</span></a>
+              </li>
+              <li><a href="#close"><i class="alert alert-info"></i><span>close</span></a>
+              </li>
+              <li><a href="#Error"><i class="alert alert-success"></i><span>Error</span></a>
+              </li>
+              <li><a href="#DatabaseProvider"><i class="alert alert-success"></i><span>DatabaseProvider</span></a>
+              </li>
+              <li><a href="#AuthenticationProvider"><i class="alert alert-success"></i><span>AuthenticationProvider</span></a>
+              </li>
+              <li><a href="#inject"><i class="alert alert-success"></i><span>inject</span></a>
+              </li>
+              <li><a href="#httpCodes"><i class="alert alert-success"></i><span>httpCodes</span></a>
+              </li>
+              <li><a href="#require"><i class="alert alert-info"></i><span>require</span></a>
+              </li>
+              <li><a href="#Module"><i class="alert alert-success"></i><span>Module</span></a>
+              </li>
+              <li><a href="#require"><i class="alert alert-info"></i><span>require</span></a>
+              </li>
+              <li><a href="#require"><i class="alert alert-info"></i><span>require</span></a>
+              </li>
+              <li><a href="#Routes"><i class="alert alert-success"></i><span>Routes</span></a>
+              </li>
+              <li><a href="#require"><i class="alert alert-info"></i><span>require</span></a>
+              </li>
+              <li><a href="#Resource"><i class="alert alert-success"></i><span>Resource</span></a>
+              </li>
+              <li><a href="#require"><i class="alert alert-info"></i><span>require</span></a>
+              </li>
+              <li><a href="#require"><i class="alert alert-info"></i><span>require</span></a>
+              </li>
+              <li><a href="#require"><i class="alert alert-info"></i><span>require</span></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-sm-9">
+          <section id="Ravel">
+            <h1>Ravel</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-success radius ctx-type">class</div><span>&nbsp;</span><span>new Ravel()</span><span>&nbsp;</span><span>&nbsp;</span><span class="label label-default">extends</span><span>&nbsp;</span><span>EventEmitter</span>
+            </p>
+          </section>
+          <div class="description"><p>This module provides Ravel, a lightweight but powerful framework<br />for the rapid creation of enterprise Node.js applications which<br />scale horizontally with ease and support the latest in web technology.</p></div><a role="button" data-toggle="collapse" data-target="#0" aria-expanded="false" aria-controls="0" class="btn btn-default btn-sm">Source</a>
+          <div id="0" class="collapse">
+            <pre><code class="language-javascript">class Ravel extends EventEmitter {</code></pre>
+          </div>
+          <h3 class="muted">Example</h3>
+          <pre><code class="language-javascript">  const Ravel = require('ravel');
+  const app = new Ravel();</code></pre>
+          <section id="constructor">
+            <h1>constructor</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-success radius ctx-type">constructor</div><span>&nbsp;</span><span>Ravel.prototype.constructor()</span><span>&nbsp;</span>
+            </p>
+          </section>
+          <div class="description"><p>Creates a new Ravel app instance</p></div><a role="button" data-toggle="collapse" data-target="#1" aria-expanded="false" aria-controls="1" class="btn btn-default btn-sm">Source</a>
+          <div id="1" class="collapse">
+            <pre><code class="language-javascript">constructor() {
+  super();
+
+  this[sUncaughtRejections] = 0;
+  this[sInitialized] = false;
+  this[sListening] = false;
+
+  // how we store modules for dependency injection
+  this[coreSymbols.modules] = Object.create(null);
+
+  // current working directory of the app using the
+  // ravel library, so that client modules can be
+  // loaded with relative paths.
+  this[sCWD] = process.cwd();
+
+  this[coreSymbols.knownParameters] = Object.create(null);
+  this[coreSymbols.params] = Object.create(null);
+  // a list of registered module factories which haven't yet been instantiated
+  this[coreSymbols.moduleFactories] = Object.create(null);
+  this[coreSymbols.resourceFactories] = Object.create(null);
+  this[coreSymbols.routesFactories] = Object.create(null);
+  // a list of known modules, resources and routes so that metadata can be retrieved from them
+  this[coreSymbols.knownClasses] = Object.create(null);
+
+  // init errors
+  this[sApplicationError] = require('./util/application_error');
+
+  // init logging system
+  this[sLog] = new (require('./util/log'))(this);
+
+  // init dependency injection utility, which is used by most everything else
+  this[coreSymbols.injector] = new (require('./core/injector'))(this, module.parent);
+
+  // Register known ravel parameters
+  // redis parameters
+  this.registerParameter('redis host', true, '0.0.0.0');
+  this.registerParameter('redis port', true, 6379);
+  this.registerParameter('redis password');
+  this.registerParameter('redis max retries', true, 10);
+  // Node/koa parameters
+  this.registerParameter('port', true, 8080);
+  this.registerParameter('koa public directory');
+  this.registerParameter('koa view directory');
+  this.registerParameter('koa view engine');
+  this.registerParameter('koa favicon path');
+  this.registerParameter('keygrip keys', true);
+  //Passport parameters
+  this.registerParameter('app route', false, '/');
+  this.registerParameter('login route', false, '/login');
+}</code></pre>
+          </div>
+          <h3 class="muted">Example</h3>
+          <pre><code class="language-javascript">  const Ravel = require('ravel');
+  const app = new Ravel();</code></pre>
+          <section id="cwd">
+            <h1>cwd</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-success radius ctx-type">String</div>
+            </p>
+          </section>
+          <div class="description"><p>The current working directory of the app using the ravel library, so that client modules can be<br />loaded with relative paths.</p></div><a role="button" data-toggle="collapse" data-target="#2" aria-expanded="false" aria-controls="2" class="btn btn-default btn-sm">Source</a>
+          <div id="2" class="collapse">
+            <pre><code class="language-javascript">get cwd() {
+  return this[sCWD];
+}</code></pre>
+          </div>
+          <section id="log">
+            <h1>log</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-success radius ctx-type">Logger</div>
+            </p>
+          </section>
+          <div class="description"><p>Return the app instance of Logger.<br />See <a href="util/log.js.html"><code>util/log.js</code></a> for more information.</p></div><a role="button" data-toggle="collapse" data-target="#3" aria-expanded="false" aria-controls="3" class="btn btn-default btn-sm">Source</a>
+          <div id="3" class="collapse">
+            <pre><code class="language-javascript">get log() {
+  return this[sLog];
+}</code></pre>
+          </div>
+          <h3 class="muted">Example</h3>
+          <pre><code class="language-javascript">  app.log.error('Something terrible happened!');</code></pre>
+          <section id="ApplicationError">
+            <h1>ApplicationError</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-success radius ctx-type">Object</div>
+            </p>
+          </section>
+          <div class="description"><p>A hash of all built-in error types.</p></div><a role="button" data-toggle="collapse" data-target="#4" aria-expanded="false" aria-controls="4" class="btn btn-default btn-sm">Source</a>
+          <div id="4" class="collapse">
+            <pre><code class="language-javascript">get ApplicationError() {
+  return this[sApplicationError];
+}</code></pre>
+          </div>
+          <section id="initialized">
+            <h1>initialized</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-success radius ctx-type">Boolean</div>
+            </p>
+          </section>
+          <div class="description"><p><code>true</code> iff init() or start() has been called on this app instance</p></div><a role="button" data-toggle="collapse" data-target="#5" aria-expanded="false" aria-controls="5" class="btn btn-default btn-sm">Source</a>
+          <div id="5" class="collapse">
+            <pre><code class="language-javascript">get initialized() {
+  return this[sInitialized];
+}</code></pre>
+          </div>
+          <section id="listening">
+            <h1>listening</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-success radius ctx-type">Boolean</div>
+            </p>
+          </section>
+          <div class="description"><p><code>true</code> iff listen() or start() has been called on this app instance</p></div><a role="button" data-toggle="collapse" data-target="#6" aria-expanded="false" aria-controls="6" class="btn btn-default btn-sm">Source</a>
+          <div id="6" class="collapse">
+            <pre><code class="language-javascript">get listening() {
+  return this[sListening];
+}</code></pre>
+          </div>
+          <section id="server">
+            <h1>server</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-success radius ctx-type">http.Server</div>
+            </p>
+          </section>
+          <div class="description"><p>The underlying HTTP server for this Ravel instance.<br />Only available after listen() (i.e. use @postlisten).</p></div><a role="button" data-toggle="collapse" data-target="#7" aria-expanded="false" aria-controls="7" class="btn btn-default btn-sm">Source</a>
+          <div id="7" class="collapse">
+            <pre><code class="language-javascript">get server() {
+  return this[sServer];
+}</code></pre>
+          </div>
+          <section id="init">
+            <h1>init</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-info radius ctx-type">method</div><span>&nbsp;</span><span>Ravel.prototype.init()</span><span>&nbsp;</span>
+            </p>
+          </section>
+          <div class="description"><p>Initializes the application, when the client is finished<br />supplying parameters and registering modules, resources<br />routes and rooms.</p></div><a role="button" data-toggle="collapse" data-target="#8" aria-expanded="false" aria-controls="8" class="btn btn-default btn-sm">Source</a>
+          <div id="8" class="collapse">
+            <pre><code class="language-javascript">init() {
+  // application configuration is completed in constructor
+  this.emit('pre init');
+
+  // log uncaught errors to prevent ES6 promise error swallowing
+  // https://www.hacksrus.net/blog/2015/08/a-solution-to-swallowed-exceptions-in-es6s-promises/
+  process.on('unhandledRejection', (err) =&gt; {
+    this[sUncaughtRejections] += 1;
+    const message = `Detected uncaught error in promise: \n ${err ? err.stack : err}`;
+    if (this[sUncaughtRejections] &gt;= 10) {
+      this.log.error(message);
+      this.log.error(`Encountered ${this[sUncaughtRejections]} or more uncaught rejections. Re-run ` +
+        'with full logging output for more information: app.set(\'log level\', app.log.TRACE);');
+    } else {
+      this.log.debug(message);
+    }
+  });
+
+  // load parameters from .ravelrc file, if any
+  this[coreSymbols.loadParameters]();
+
+  this[sInitialized] = true;
+
+  this.db = require('./db/database')(this);
+  this.kvstore = require('./util/kvstore')(this);
+
+  //App dependencies.
+  const http = require('http'); //https will be provided by reverse proxy
+  const upath = require('upath');
+  const koa = require('koa');
+  const session = require('koa-generic-session');
+  const compression = require('koa-compress');
+  const favicon = require('koa-favicon');
+  const router = require('koa-router')();
+
+  // configure koa
+  const app = koa();
+  app.proxy = true;
+
+  // the first piece of middleware is the exception handler
+  // catch all errors and return appropriate error codes
+  // to the client
+  app.use((new Rest(this)).errorHandler());
+
+  // enable gzip compression
+  app.use(compression());
+
+  // configure redis session store
+  app.keys = this.get('keygrip keys');
+  const sessionStoreArgs = {
+    host:this.get('redis host'),
+    port:this.get('redis port'),
+    options: {
+      'no_ready_check': true,
+      'retry_strategy': require('./util/kvstore').retryStrategy(this)
+    }
+  };
+  if (this.get('redis password')) {
+    sessionStoreArgs.pass = this.get('redis password');
+  }
+  app.use(session({
+    store: new (require('./util/redis_session_store'))(this),
+    cookie: {
+      path: '/',
+      httpOnly: true,
+      maxage: null,
+      rewrite: true,
+      signed: true
+    }
+  }));
+
+  // configure view engine
+  if (this.get('koa view engine') &amp;&amp; this.get('koa view directory')) {
+    const views = require('koa-views');
+    app.use(views(upath.join(this.cwd, this.get('koa view directory')), {
+      map: {
+        html: this.get('koa view engine')
+      }
+    }));
+  }
+
+  // favicon
+  if (this.get('koa favicon path')) {
+    app.use(favicon(upath.join(this.cwd, this.get('koa favicon path'))));
+  }
+
+  // static file serving
+  if (this.get('koa public directory')) {
+    const root = upath.join(this.cwd, this.get('koa public directory'));
+    app.use(require('koa-static')(root, {
+      gzip: false // this should be handled by koa-compressor?
+    }));
+  }
+
+  //initialize authentication/authentication
+  require('./auth/passport_init.js')(this, router);
+
+  // basic koa configuration is completed
+  this.emit('post config koa', app);
+
+  // create registered modules using factories
+  this[coreSymbols.moduleInit]();
+
+  this.emit('post module init');
+
+  this.emit('pre routes init', app);
+
+  // create registered resources using factories
+  this[coreSymbols.resourceInit](router);
+
+  // create routes using factories
+  this[coreSymbols.routesInit](router);
+
+  // include routes as middleware
+  app.use(router.routes());
+
+  //Create koa server
+  this[sServer] = http.createServer(app.callback());
+
+  // application configuration is completed
+  this.emit('post init');
+}</code></pre>
+          </div>
+          <section id="listen">
+            <h1>listen</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-info radius ctx-type">method</div><span>&nbsp;</span><span>Ravel.prototype.listen()</span><span>&nbsp;</span>
+            </p>
+          </section>
+          <div class="description"><p>Starts the application. Must be called after initialize()</p></div><a role="button" data-toggle="collapse" data-target="#9" aria-expanded="false" aria-controls="9" class="btn btn-default btn-sm">Source</a>
+          <div id="9" class="collapse">
+            <pre><code class="language-javascript">listen() {
+  return new Promise((resolve, reject) =&gt; {
+    if (!this[sInitialized]) {
+      reject(new this.ApplicationError.NotAllowed('Cannot call Ravel.listen() before Ravel.init()'));
+    } else {
+      this.emit('pre listen');
+      //Start Koa server
+      this[sServer].listen(this.get('port'), () =&gt; {
+        this.log.info('Application server listening on port ' + this.get('port'));
+        this.emit('post listen');
+        this[sListening] = true;
+        resolve();
+      });
+    }
+  });
+}</code></pre>
+          </div>
+          <section id="start">
+            <h1>start</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-info radius ctx-type">method</div><span>&nbsp;</span><span>Ravel.prototype.start()</span><span>&nbsp;</span>
+            </p>
+          </section>
+          <div class="description"><p>Intializes and starts the application.</p></div><a role="button" data-toggle="collapse" data-target="#10" aria-expanded="false" aria-controls="10" class="btn btn-default btn-sm">Source</a>
+          <div id="10" class="collapse">
+            <pre><code class="language-javascript">start() {
+  this.init();
+  return this.listen();
+}</code></pre>
+          </div>
+          <section id="close">
+            <h1>close</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-info radius ctx-type">method</div><span>&nbsp;</span><span>Ravel.prototype.close()</span><span>&nbsp;</span>
+            </p>
+          </section>
+          <div class="description"><p>Stops the application. A no op if the server isn&#39;t running.</p></div><a role="button" data-toggle="collapse" data-target="#11" aria-expanded="false" aria-controls="11" class="btn btn-default btn-sm">Source</a>
+          <div id="11" class="collapse">
+            <pre><code class="language-javascript">close() {
+  return new Promise((resolve) =&gt; {
+    // console.log('closing');
+    this.emit('end');
+    if (!this[sServer] || !this[sListening]) {
+      resolve();
+    } else {
+      this[sServer].close(() =&gt; {
+        this.log.info('Application server terminated.');
+        this[sListening] = false;
+        resolve();
+      });
+    }
+  });
+}
+}</code></pre>
+          </div>
+          <section id="Error">
+            <h1>Error</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-success radius ctx-type">property</div><span>&nbsp;</span><span>Ravel.Error</span><span>&nbsp;</span>
+            </p>
+          </section>
+          <div class="description"><p>The base class of Ravel <code>Error</code>s, which associate<br />http status codes with your custom errors.</p></div><a role="button" data-toggle="collapse" data-target="#12" aria-expanded="false" aria-controls="12" class="btn btn-default btn-sm">Source</a>
+          <div id="12" class="collapse">
+            <pre><code class="language-javascript">Ravel.Error = require('./util/application_error').General;</code></pre>
+          </div>
+          <h3 class="muted">Example</h3>
+          <pre><code class="language-javascript">  const Ravel = require('ravel');
+  class NotFoundError extends Ravel.Error {
+    constructor(msg) {
+      super(msg, Ravel.httpCodes.NOT_FOUND);
+    }
+  }</code></pre>
+          <section id="DatabaseProvider">
+            <h1>DatabaseProvider</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-success radius ctx-type">property</div><span>&nbsp;</span><span>Ravel.DatabaseProvider</span><span>&nbsp;</span>
+            </p>
+          </section>
+          <div class="description"><p>The base class for Ravel <code>DatabaseProvider</code>s. See<br /><a href="db/database_provider.js.html"><code>db/database_provider</code></a> for more information.</p></div><a role="button" data-toggle="collapse" data-target="#13" aria-expanded="false" aria-controls="13" class="btn btn-default btn-sm">Source</a>
+          <div id="13" class="collapse">
+            <pre><code class="language-javascript">Ravel.DatabaseProvider = require('./db/database_provider').DatabaseProvider;</code></pre>
+          </div>
+          <h3 class="muted">Example</h3>
+          <pre><code class="language-javascript">  const DatabaseProvider = require('ravel').DatabaseProvider;
+  class MySQLProvider extends DatabaseProvider {
+    // ...
+  }</code></pre>
+          <section id="AuthenticationProvider">
+            <h1>AuthenticationProvider</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-success radius ctx-type">property</div><span>&nbsp;</span><span>Ravel.AuthenticationProvider</span><span>&nbsp;</span>
+            </p>
+          </section>
+          <div class="description"><p>The base class for Ravel <code>AuthenticationProvider</code>s. See<br /><a href="auth/authentication_provider.js.html"><code>auth/authentication_provider</code></a> for more information.</p></div><a role="button" data-toggle="collapse" data-target="#14" aria-expanded="false" aria-controls="14" class="btn btn-default btn-sm">Source</a>
+          <div id="14" class="collapse">
+            <pre><code class="language-javascript">Ravel.AuthenticationProvider = require('./auth/authentication_provider').AuthenticationProvider;</code></pre>
+          </div>
+          <h3 class="muted">Example</h3>
+          <pre><code class="language-javascript">  const AuthenticationProvider = require('ravel').AuthenticationProvider;
+  class GoogleOAuth2Provider extends AuthenticationProvider {
+    // ...
+  }</code></pre>
+          <section id="inject">
+            <h1>inject</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-success radius ctx-type">property</div><span>&nbsp;</span><span>Ravel.inject</span><span>&nbsp;</span>
+            </p>
+          </section>
+          <div class="description"><p>Makes the <code>@inject</code> decorator available as <code>Ravel.inject</code></p></div><a role="button" data-toggle="collapse" data-target="#15" aria-expanded="false" aria-controls="15" class="btn btn-default btn-sm">Source</a>
+          <div id="15" class="collapse">
+            <pre><code class="language-javascript">Ravel.inject = require('./core/decorators/inject');</code></pre>
+          </div>
+          <h3 class="muted">Example</h3>
+          <pre><code class="language-javascript">  const Ravel = require('ravel');
+  const inject = Ravel.inject;</code></pre>
+          <section id="httpCodes">
+            <h1>httpCodes</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-success radius ctx-type">property</div><span>&nbsp;</span><span>Ravel.httpCodes</span><span>&nbsp;</span>
+            </p>
+          </section>
+          <div class="description"><p>A dictionary of useful http status codes</p></div><a role="button" data-toggle="collapse" data-target="#16" aria-expanded="false" aria-controls="16" class="btn btn-default btn-sm">Source</a>
+          <div id="16" class="collapse">
+            <pre><code class="language-javascript">Ravel.httpCodes = require('./util/http_codes');</code></pre>
+          </div>
+          <h3 class="muted">Example</h3>
+          <pre><code class="language-javascript">  const Ravel = require('ravel');
+  console.log(Ravel.httpCodes.NOT_FOUND);</code></pre>
+          <section id="require">
+            <h1>require</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-info radius ctx-type">method</div><span>&nbsp;</span><span>require()</span><span>&nbsp;</span>
+            </p>
+          </section>
+          <div class="description"><p>Requires Ravel&#39;s parameter system<br />See <a href="core/params.js.html"><code>core/params</code></a> for more information.</p></div><a role="button" data-toggle="collapse" data-target="#17" aria-expanded="false" aria-controls="17" class="btn btn-default btn-sm">Source</a>
+          <div id="17" class="collapse">
+            <pre><code class="language-javascript">require('./core/params')(Ravel);</code></pre>
+          </div>
+          <h3 class="muted">Example</h3>
+          <pre><code class="language-javascript"> app.registerParameter('my parameter', true, 'default value');
+ const value = app.get('my parameter');
+ app.set('my parameter', 'another value');</code></pre>
+          <section id="Module">
+            <h1>Module</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-success radius ctx-type">property</div><span>&nbsp;</span><span>Ravel.Module</span><span>&nbsp;</span>
+            </p>
+          </section>
+          <div class="description"><p>The base class for Ravel <code>Module</code>s. See<br /><a href="core/module.js.html"><code>core/module</code></a> for more information.</p></div><a role="button" data-toggle="collapse" data-target="#18" aria-expanded="false" aria-controls="18" class="btn btn-default btn-sm">Source</a>
+          <div id="18" class="collapse">
+            <pre><code class="language-javascript">Ravel.Module = require('./core/module').Module;</code></pre>
+          </div>
+          <h3 class="muted">Example</h3>
+          <pre><code class="language-javascript">  const Module = require('ravel').Module;
+  class MyModule extends Module {
+    // ...
+  }
+  module.exports = MyModule;</code></pre>
+          <section id="require">
+            <h1>require</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-info radius ctx-type">method</div><span>&nbsp;</span><span>require()</span><span>&nbsp;</span>
+            </p>
+          </section>
+          <div class="description"><p>Requires Ravel&#39;s <code>Module</code> registration system<br />See <a href="core/module.js.html"><code>core/module</code></a> for more information.</p></div><a role="button" data-toggle="collapse" data-target="#19" aria-expanded="false" aria-controls="19" class="btn btn-default btn-sm">Source</a>
+          <div id="19" class="collapse">
+            <pre><code class="language-javascript">require('./core/module')(Ravel);</code></pre>
+          </div>
+          <h3 class="muted">Example</h3>
+          <pre><code class="language-javascript">  app.module('./modules/mymodule', 'mymodule');</code></pre>
+          <section id="require">
+            <h1>require</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-info radius ctx-type">method</div><span>&nbsp;</span><span>require()</span><span>&nbsp;</span>
+            </p>
+          </section>
+          <div class="description"><p>Requires Ravel&#39;s recursive <code>Module</code> registration system.<br />Names for modules are derived from their file names, and<br />are namespaced by their directories.<br />See <a href="core/modules.js.html"><code>core/modules</code></a> for more information.</p></div><a role="button" data-toggle="collapse" data-target="#20" aria-expanded="false" aria-controls="20" class="btn btn-default btn-sm">Source</a>
+          <div id="20" class="collapse">
+            <pre><code class="language-javascript">require('./core/modules')(Ravel);</code></pre>
+          </div>
+          <h3 class="muted">Example</h3>
+          <pre><code class="language-javascript">  // recursively load all Modules in a directory
+  app.modules('./modules');
+  // a Module 'modules/test.js' in ./modules can be injected as `@inject('test')`
+  // a Module 'modules/stuff/test.js' in ./modules can be injected as `@inject('stuff.test')`</code></pre>
+          <section id="Routes">
+            <h1>Routes</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-success radius ctx-type">property</div><span>&nbsp;</span><span>Ravel.Routes</span><span>&nbsp;</span>
+            </p>
+          </section>
+          <div class="description"><p>The base class for Ravel <code>Routes</code>. See<br /><a href="core/routes.js.html"><code>core/routes</code></a> for more information.</p></div><a role="button" data-toggle="collapse" data-target="#21" aria-expanded="false" aria-controls="21" class="btn btn-default btn-sm">Source</a>
+          <div id="21" class="collapse">
+            <pre><code class="language-javascript">Ravel.Routes = require('./core/routes').Routes;</code></pre>
+          </div>
+          <h3 class="muted">Example</h3>
+          <pre><code class="language-javascript">  const Routes = require('ravel').Routes;
+  class MyRoutes extends Routes {
+    // ...
+  }
+  module.exports = MyRoutes;</code></pre>
+          <section id="require">
+            <h1>require</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-info radius ctx-type">method</div><span>&nbsp;</span><span>require()</span><span>&nbsp;</span>
+            </p>
+          </section>
+          <div class="description"><p>Requires Ravel&#39;s <code>Routes</code> registration system<br />See <a href="core/routes.js.html"><code>core/routes</code></a> for more information.</p></div><a role="button" data-toggle="collapse" data-target="#22" aria-expanded="false" aria-controls="22" class="btn btn-default btn-sm">Source</a>
+          <div id="22" class="collapse">
+            <pre><code class="language-javascript">require('./core/routes')(Ravel);</code></pre>
+          </div>
+          <h3 class="muted">Example</h3>
+          <pre><code class="language-javascript">  app.routes('./routes/myroutes');</code></pre>
+          <section id="Resource">
+            <h1>Resource</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-success radius ctx-type">property</div><span>&nbsp;</span><span>Ravel.Resource</span><span>&nbsp;</span>
+            </p>
+          </section>
+          <div class="description"><p>The base class for Ravel <code>Resource</code>. See<br /><a href="core/resource.js.html"><code>core/resource</code></a> for more information.</p></div><a role="button" data-toggle="collapse" data-target="#23" aria-expanded="false" aria-controls="23" class="btn btn-default btn-sm">Source</a>
+          <div id="23" class="collapse">
+            <pre><code class="language-javascript">Ravel.Resource = require('./core/resource').Resource;</code></pre>
+          </div>
+          <h3 class="muted">Example</h3>
+          <pre><code class="language-javascript">  const Resource = require('ravel').Resource;
+  class MyResource extends Resource {
+    // ...
+  }
+  module.exports = MyResource;</code></pre>
+          <section id="require">
+            <h1>require</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-info radius ctx-type">method</div><span>&nbsp;</span><span>require()</span><span>&nbsp;</span>
+            </p>
+          </section>
+          <div class="description"><p>Requires Ravel&#39;s <code>Resource</code> registration system<br />See <a href="core/resource.js.html"><code>core/resource</code></a> for more information.</p></div><a role="button" data-toggle="collapse" data-target="#24" aria-expanded="false" aria-controls="24" class="btn btn-default btn-sm">Source</a>
+          <div id="24" class="collapse">
+            <pre><code class="language-javascript">require('./core/resource')(Ravel);</code></pre>
+          </div>
+          <h3 class="muted">Example</h3>
+          <pre><code class="language-javascript">  app.resource('./resources/myresource');</code></pre>
+          <section id="require">
+            <h1>require</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-info radius ctx-type">method</div><span>&nbsp;</span><span>require()</span><span>&nbsp;</span>
+            </p>
+          </section>
+          <div class="description"><p>Requires Ravel&#39;s recursive <code>Resource</code> registration system.</p><p>See <a href="core/resources.js.html"><code>core/resources</code></a> for more information.</p></div><a role="button" data-toggle="collapse" data-target="#25" aria-expanded="false" aria-controls="25" class="btn btn-default btn-sm">Source</a>
+          <div id="25" class="collapse">
+            <pre><code class="language-javascript">require('./core/resources')(Ravel);</code></pre>
+          </div>
+          <h3 class="muted">Example</h3>
+          <pre><code class="language-javascript">  // recursively load all Resources in a directory
+  app.resources('./resources');</code></pre>
+          <section id="require">
+            <h1>require</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-info radius ctx-type">method</div><span>&nbsp;</span><span>require()</span><span>&nbsp;</span>
+            </p>
+          </section>
+          <div class="description"><p>Requires Ravel&#39;s lightweight reflection/metadata system.</p><p>See <a href="core/reflect.js.html"><code>core/reflect</code></a> for more information.</p></div><a role="button" data-toggle="collapse" data-target="#26" aria-expanded="false" aria-controls="26" class="btn btn-default btn-sm">Source</a>
+          <div id="26" class="collapse">
+            <pre><code class="language-javascript">require('./core/reflect')(Ravel);
+
+module.exports = Ravel;</code></pre>
+          </div>
+          <h3 class="muted">Example</h3>
+          <pre><code class="language-javascript">  // examine a registered Module, Resource or Route by file path
+  app.reflect('./modules/mymodule.js');</code></pre>
+        </div>
+      </div>
+    </div>
+    <footer class="footer">
+      <div class="container">
+        <p>Documentation generated with&nbsp;<a href="https://github.com/mr-doc/mr-doc">Mr. Doc</a> created by&nbsp;<a href="https://twitter.com/FGRibreau" data-show-count="false" class="twitter-follow-button">Francois-Guillaume Ribreau</a></p>
+        <p>Mr. Doc is sponsored by&nbsp;<a href="http://bringr.net/?btt" title="Outil d'analyse des réseaux sociaux" class="bringr">Bringr</a> and&nbsp;<a href="https://redsmin.com/?btt" title="Full Redis GUI" class="redsmin">Redsmin</a></p>
+        <p>Theme borrowed from Twitter Bootstrap</p>
+      </div>
+    </footer>
+    <script src="js/twitter-widget.min.js"></script>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/prism.min.js"></script>
+    <script src="js/index.min.js"></script>
+  </body>
+</html>

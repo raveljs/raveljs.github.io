@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width" charset="utf-8">
+    <title>Ravel 0.17.10 API Reference</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="../css/prism.min.css">
+    <link rel="stylesheet" href="../css/index.min.css">
+    <link rel="stylesheet" href="../css/docs.min.css">
+  </head>
+  <body data-spy="scroll" data-target=".scrollspy">
+    <header id="overview" class="jumbotron subhead">
+      <div class="container"><img src="../css/logo2.png">
+        <h1>Ravel 0.17.10 API Reference</h1>
+      </div>
+    </header>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-3 bs-docs-sidebar">
+          <ul class="nav nav-list bs-docs-sidenav affix-top">
+            <li><a href="../index.html">Main</a></li>
+            <li><a href="../auth/authentication_provider.js.html">auth/authentication_provider.js</a></li>
+            <li><a href="../auth/decorators/authconfig.js.html">auth/decorators/authconfig.js</a></li>
+            <li><a href="../auth/decorators/authenticated.js.html">auth/decorators/authenticated.js</a></li>
+            <li><a href="../core/decorators/before.js.html">core/decorators/before.js</a></li>
+            <li><a href="../core/decorators/inject.js.html">core/decorators/inject.js</a></li>
+            <li><a href="../core/decorators/lifecycle.js.html">core/decorators/lifecycle.js</a></li>
+            <li><a href="../core/decorators/mapping.js.html">core/decorators/mapping.js</a></li>
+            <li><a href="../core/module.js.html">core/module.js</a></li>
+            <li><a href="../core/modules.js.html">core/modules.js</a></li>
+            <li class="active"><a href="../core/params.js.html">core/params.js</a></li>
+            <li><a href="../core/reflect.js.html">core/reflect.js</a></li>
+            <li><a href="../core/resource.js.html">core/resource.js</a></li>
+            <li><a href="../core/resources.js.html">core/resources.js</a></li>
+            <li><a href="../core/routes.js.html">core/routes.js</a></li>
+            <li><a href="../db/database_provider.js.html">db/database_provider.js</a></li>
+            <li><a href="../db/decorators/transaction.js.html">db/decorators/transaction.js</a></li>
+            <li><a href="../ravel.js.html">ravel.js</a></li>
+            <li><a href="../util/application_error.js.html">util/application_error.js</a></li>
+            <li><a href="../util/http_codes.js.html">util/http_codes.js</a></li>
+            <li><a href="../util/log.js.html">util/log.js</a></li>
+          </ul>
+          <div class="scrollspy">
+            <ul class="nav nav-list bs-docs-sidenav affix-top">
+              <li><a href="#exports"><i class="alert alert-info"></i><span>exports</span></a>
+              </li>
+              <li><a href="#registerParameter"><i class="alert alert-info"></i><span>registerParameter</span></a>
+              </li>
+              <li><a href="#set"><i class="alert alert-info"></i><span>set</span></a>
+              </li>
+              <li><a href="#get"><i class="alert alert-info"></i><span>get</span></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-sm-9">
+          <section id="exports">
+            <h1>exports</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-info radius ctx-type">method</div><span>&nbsp;</span><span>module.exports()</span><span>&nbsp;</span>
+            </p>
+          </section>
+          <div class="description"><p>A lightweight configuration system for Ravel, allowing<br />clients, as well as other parts of the application, to<br />define expected configuration parameters and get/set<br />their values</p></div><a role="button" data-toggle="collapse" data-target="#0" aria-expanded="false" aria-controls="0" class="btn btn-default btn-sm">Source</a>
+          <div id="0" class="collapse">
+            <pre><code class="language-javascript">module.exports = function(Ravel) {</code></pre>
+          </div>
+          <section id="registerParameter">
+            <h1>registerParameter</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-info radius ctx-type">method</div><span>&nbsp;</span><span>Ravel.prototype.registerParameter()</span><span>&nbsp;</span>
+            </p>
+          </section>
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th style="width:20%">Option name</th>
+                <th style="width:20%">Type</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>key</td>
+                <td>String</td>
+                <td><p>the key for the parameter</p></td>
+              </tr>
+              <tr>
+                <td>required</td>
+                <td>Boolean</td>
+                <td><p>true, iff the parameter is required. false otherwise.</p></td>
+              </tr>
+              <tr>
+                <td>defaultValue</td>
+                <td>Any</td>
+                <td><p>the default value for the parameter</p></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="description"><p>Register a parameter</p></div><a role="button" data-toggle="collapse" data-target="#1" aria-expanded="false" aria-controls="1" class="btn btn-default btn-sm">Source</a>
+          <div id="1" class="collapse">
+            <pre><code class="language-javascript">Ravel.prototype.registerParameter = function(key, required, defaultValue) {
+  this[symbols.knownParameters][key] = {
+    required: required
+  };
+  if (defaultValue !== undefined) {
+    defaults[key] = JSON.parse(JSON.stringify(defaultValue));
+  }
+};</code></pre>
+          </div>
+          <section id="set">
+            <h1>set</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-info radius ctx-type">method</div><span>&nbsp;</span><span>Ravel.prototype.set()</span><span>&nbsp;</span>
+            </p>
+          </section>
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th style="width:20%">Option name</th>
+                <th style="width:20%">Type</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>key</td>
+                <td>String</td>
+                <td><p>the key for the parameter</p></td>
+              </tr>
+              <tr>
+                <td>value</td>
+                <td>Object</td>
+                <td><p>the value for the parameter</p></td>
+              </tr>
+              <tr>
+                <td>return</td>
+                <td>Object</td>
+                <td><p>the parameter value</p></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="description"><p>Set a parameter</p></div><a role="button" data-toggle="collapse" data-target="#2" aria-expanded="false" aria-controls="2" class="btn btn-default btn-sm">Source</a>
+          <div id="2" class="collapse">
+            <pre><code class="language-javascript">Ravel.prototype.set = function(key, value) {
+  if (this[symbols.knownParameters][key]) {
+    this[symbols.params][key] = value;
+  } else {
+    throw new this.ApplicationError.IllegalValue(`Attempted to set unknown parameter: ${key}.`);
+  }
+};</code></pre>
+          </div>
+          <section id="get">
+            <h1>get</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-info radius ctx-type">method</div><span>&nbsp;</span><span>Ravel.prototype.get()</span><span>&nbsp;</span>
+            </p>
+          </section>
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th style="width:20%">Option name</th>
+                <th style="width:20%">Type</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>key</td>
+                <td>String</td>
+                <td><p>the key for the parameter</p></td>
+              </tr>
+              <tr>
+                <td>return</td>
+                <td>Object</td>
+                <td><p>the parameter value, or undefined if it is not required and not set</p></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="description"><p>Get a parameter</p></div><a role="button" data-toggle="collapse" data-target="#3" aria-expanded="false" aria-controls="3" class="btn btn-default btn-sm">Source</a>
+          <div id="3" class="collapse">
+            <pre><code class="language-javascript">Ravel.prototype.get = function(key) {
+  if (!this[symbols.knownParameters][key]) {
+    throw new this.ApplicationError.NotFound(`Parameter ${key} was requested, but is unknown.`);
+  } else if (this[symbols.knownParameters][key].required &amp;&amp; this[symbols.params][key] === undefined) {
+    throw new this.ApplicationError.NotFound(
+      `Known required parameter ${key} was requested, but hasn't been defined yet.`);
+  } else if (this[symbols.params][key] === undefined) {
+    this.log.trace(`Optional parameter ${key} was requested, but is not defined.`);
+    return undefined;
+  } else {
+    return JSON.parse(JSON.stringify(this[symbols.params][key]));
+  }
+};
+
+/**
+ * Ravel.config getter
+ * @return {Object} full Ravel configuration
+ */
+Object.defineProperty(Ravel.prototype, 'config', {
+  get: function () { return this[symbols.params]; }
+});
+};</code></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer class="footer">
+      <div class="container">
+        <p>Documentation generated with&nbsp;<a href="https://github.com/mr-doc/mr-doc">Mr. Doc</a> created by&nbsp;<a href="https://twitter.com/FGRibreau" data-show-count="false" class="twitter-follow-button">Francois-Guillaume Ribreau</a></p>
+        <p>Mr. Doc is sponsored by&nbsp;<a href="http://bringr.net/?btt" title="Outil d'analyse des réseaux sociaux" class="bringr">Bringr</a> and&nbsp;<a href="https://redsmin.com/?btt" title="Full Redis GUI" class="redsmin">Redsmin</a></p>
+        <p>Theme borrowed from Twitter Bootstrap</p>
+      </div>
+    </footer>
+    <script src="../js/twitter-widget.min.js"></script>
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/prism.min.js"></script>
+    <script src="../js/index.min.js"></script>
+  </body>
+</html>
