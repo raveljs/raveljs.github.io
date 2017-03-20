@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset='utf-8' />
-  <title>Ravel 0.18.3  | Documentation</title>
+  <title>Ravel API 0.18.3 | Documentation</title>
   <meta name='viewport' content='width=device-width,initial-scale=1'>
   <link href='assets/bass.css' type='text/css' rel='stylesheet' />
   <link href='assets/style.css' type='text/css' rel='stylesheet' />
@@ -14,8 +14,91 @@
       <div class='fixed xs-hide fix-3 overflow-auto max-height-100'>
         <div class='py1 px2'>
           <img src="assets/logo.png" width="90" class="logo">
-          <h3 class='mb0 no-anchor'>Ravel 0.18.3</h3>
-          <div class='mb1'><code></code></div>
+          <h3 class='mb0 no-anchor'>Ravel API
+            <select class="ml1" onchange="goToDoc(this)">
+              
+                
+                  <option value="0.18.3" selected>0.18.3</option>
+                
+              
+                
+                  <option value="0.18.2">0.18.2</option>
+                
+              
+                
+                  <option value="0.18.1">0.18.1</option>
+                
+              
+                
+                  <option value="0.18.0">0.18.0</option>
+                
+              
+                
+                  <option value="0.17.9">0.17.9</option>
+                
+              
+                
+                  <option value="0.17.8">0.17.8</option>
+                
+              
+                
+                  <option value="0.17.7">0.17.7</option>
+                
+              
+                
+                  <option value="0.17.5">0.17.5</option>
+                
+              
+                
+                  <option value="0.17.4">0.17.4</option>
+                
+              
+                
+                  <option value="0.17.3">0.17.3</option>
+                
+              
+                
+                  <option value="0.17.2">0.17.2</option>
+                
+              
+                
+                  <option value="0.17.18">0.17.18</option>
+                
+              
+                
+                  <option value="0.17.17">0.17.17</option>
+                
+              
+                
+                  <option value="0.17.13">0.17.13</option>
+                
+              
+                
+                  <option value="0.17.12">0.17.12</option>
+                
+              
+                
+                  <option value="0.17.11">0.17.11</option>
+                
+              
+                
+                  <option value="0.17.10">0.17.10</option>
+                
+              
+                
+                  <option value="0.17.1">0.17.1</option>
+                
+              
+                
+                  <option value="0.17.0">0.17.0</option>
+                
+              
+                
+                  <option value="0.16.0">0.16.0</option>
+                
+              
+            </select>
+          </h3>
           <input
             placeholder='Filter'
             id='filter-input'
@@ -12004,5 +12087,10 @@ which is outside of the bounds of that set.</p>
   </div>
   <script src='assets/anchor.js'></script>
   <script src='assets/site.js'></script>
+  <script>
+    function goToDoc(e) {
+      window.location.href = '../' + e.value + '/';
+    }
+  </script>
 </body>
 </html>
