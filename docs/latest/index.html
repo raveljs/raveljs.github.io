@@ -11625,7 +11625,7 @@ which is outside of the bounds of that set. Associated with HTTP 416 REQUESTED R
 <p>Having done so, bootstrap your application the same way you run it:</p>
 <pre class='hljs'>describe(<span class="hljs-string">'Some test'</span>, () =&gt; {
   <span class="hljs-keyword">let</span> app;
-  beforeEach(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-keyword">async</span> () =&gt; {
+  beforeEach(<span class="hljs-keyword">async</span> () =&gt; {
     <span class="hljs-keyword">const</span> Ravel = <span class="hljs-keyword">new</span> <span class="hljs-built_in">require</span>(<span class="hljs-string">'ravel'</span>);
     app = <span class="hljs-keyword">new</span> Ravel();
     app.set(<span class="hljs-string">'keygrip keys'</span>, [<span class="hljs-string">'abc'</span>]); <span class="hljs-comment">// required parameter</span>
@@ -11653,7 +11653,7 @@ it(<span class="hljs-string">'should respond in some way'</span>, <span class="h
 });</pre>
 <h3>Testing in Isolation</h3>
 <p>If you wish to test an individual <code>Module</code>, <code>Resource</code> or <code>Routes</code> class without bootstrapping your entire application, you can leverage <code>app.load()</code> to load or mock components:</p>
-<pre class='hljs'>beforeEach(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-keyword">async</span> () =&gt; {
+<pre class='hljs'>beforeEach(<span class="hljs-keyword">async</span> () =&gt; {
     <span class="hljs-keyword">const</span> Ravel = <span class="hljs-keyword">new</span> <span class="hljs-built_in">require</span>(<span class="hljs-string">'ravel'</span>);
     app = <span class="hljs-keyword">new</span> Ravel();
     app.set(<span class="hljs-string">'keygrip keys'</span>, [<span class="hljs-string">'abc'</span>]); <span class="hljs-comment">// required parameter</span>
