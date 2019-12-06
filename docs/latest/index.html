@@ -3484,7 +3484,7 @@ dependencies are detected automatically.</p>
 for serving templated pages or static content (not for building RESTful APIs, for which <code>Ravel.Resource</code>
 is more applicable). Clients decorate a class with this decorator to create a <code>Routes</code> module.</p>
 <p>Route paths are the concatenation of the basePath provided to <code>@Routes(basePath)</code>, with the
-subpath passed to <code>&#x26;#64;mapping(method, subpath)</code>. Route paths may incorporate complex patterns, such as:</p>
+subpath passed to <code>@mapping(method, subpath)</code>. Route paths may incorporate complex patterns, such as:</p>
 <ul>
 <li><strong>Parameters:</strong> <code>'/foo/:id'</code> (<code>:id</code> is captured as <code>ctx.params.id</code>, and matches any chars but <code>/</code> by default)</li>
 <li><strong>Multiple parameters:</strong> <code>'/:foo/:bar'</code> (<code>ctx.params.foo</code> and <code>ctx.params.bar</code> are both available)</li>
